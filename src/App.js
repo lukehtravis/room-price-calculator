@@ -26,9 +26,12 @@ function App() {
       })
       setRooms(roomsTemp);
     }
-    
   }
-  console.log("rooms:", rooms)
+
+  const addAttribute = () => {
+    setAttributes(attributes.concat("clicked"));
+  }
+
   return (
     <div className="App">
       <div>
@@ -36,7 +39,12 @@ function App() {
         <NumberInput name="numberOfRooms" value={numberOfRooms} onNumberChange={setNumberOfRooms} />
         <button onClick={() => makeRooms(numberOfRooms)}>Create Rooms</button>
         {rooms.length > 0  && (
-          <Attribute rooms={rooms} setRooms={setRooms} totalRent={totalRent} />
+          <div>
+          <button onClick={addAttribute}>Add Attribute</button>
+          {attributes.map((attribute, i) => {
+            return <Attribute rooms={rooms} setRooms={setRooms} totalRent={totalRent} />;
+          })}
+          </div>
         )}
       </div>
     </div>
