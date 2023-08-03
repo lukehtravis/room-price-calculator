@@ -9,10 +9,12 @@ const Attribute = ({ rooms, setRooms, totalRent }) => {
     const [attributeName, setAttributeName] = useState("");
     const [attributePercentage, setAttributePercentage] = useState(0);
     const [attribute, setAttribute] = useState(null)
+    const [inputsVisible, setInputsVisible] = useState(false);
     const [roomAttributes, setRoomAttributes] = useState([]);
-    const onSubmit = (event) => {
+    const onAttributeDefine = (event) => {
         event.preventDefault();
         setAttribute({attributeName, attributePercentage});
+        setInputsVisible(true);
     }
 
     const onAttributeSubmit = (event) => {
@@ -26,35 +28,40 @@ const Attribute = ({ rooms, setRooms, totalRent }) => {
             
         })
         setRooms(roomsWithAttribute);
+        setInputsVisible(false);
     }
+
     return (
         <div className="attribute">
-            <div className="attribute-entry">
+           {!attribute && <div className="attribute-entry">
                 <div className="enter-attribute-name">
                     <TextInput name={"Attribute Name"} value={attributeName} onTextChange={setAttributeName} />
                 </div>
                 <div className="attribute-percentage">
                     <NumberInput name={"Attribute Percentage"} percentage={true} value={attributePercentage} onNumberChange={setAttributePercentage} />
                 </div>
-                <button onClick={onSubmit}>Create Attribute</button>
-            </div>
-            {attribute && (
+                <button onClick={onAttributeDefine}>Create Attribute</button>
+            </div>}
+            {inputsVisible && (
               <div className="room-configuration">
-                {rooms.map((room) => <Room roomAttributes={roomAttributes} setRoomAttributes={setRoomAttributes} name={room.name}/>)}
+                {rooms.map((room) => <Room key={room.name} roomAttributes={roomAttributes} setRoomAttributes={setRoomAttributes} name={room.name}/>)}
                 <button onClick={onAttributeSubmit}>Submit Attribute Details</button>
               </div>
             )}
             <div className="display">
                 {rooms.map((room) => {
                     return room.attributes.map((attribute) => {
-                        return (
-                            <div className="">
-                                <div>Room: {attribute.name}</div>
-                                <div>Attribute Name: {attribute.attributeName}</div>
-                                <div>Units: {attribute.roomUnits}</div>
-                                <div>Rent Share: {calculateAttributePricePerRoom(attribute.roomUnits, attribute.totalUnits, attributePercentage, totalRent)}</div>
-                            </div>
-                        )
+                        if (attribute.attributeName === attributeName) {
+                            return (
+                                <div key={room.name} className="attribute-breakdown">
+                                    <div>Room: {attribute.name}</div>
+                                    <div>Attribute Name: {attribute.attributeName}</div>
+                                    <div>Units: {attribute.roomUnits}</div>
+                                    <div>Rent Share: {calculateAttributePricePerRoom(attribute.roomUnits, attribute.totalUnits, attributePercentage, totalRent)}</div>
+                                </div>
+                            )
+                        }
+                        return null;
                     })
                 })}
             </div>
