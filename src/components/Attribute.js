@@ -21,11 +21,11 @@ const Attribute = ({ rooms, setRooms, totalRent }) => {
         event.preventDefault();
         const totalUnits = calculateUnitTotals(roomAttributes);
         const roomsWithAttribute = rooms.map((room) => {
+            const roomUnits = Number(roomAttributes.find((roomAttribute) => roomAttribute.name === room.name).value)
             return {
                 ...room,
-                attributes: [...room.attributes, {attributeName, name: room.name, roomUnits: roomAttributes.find((roomAttribute) => roomAttribute.name === room.name).value, totalUnits: totalUnits}]   
-            }
-            
+                attributes: [...room.attributes, {attributeName, name: room.name, cost: calculateAttributePricePerRoom(roomUnits, totalUnits, attributePercentage, totalRent), roomUnits: roomUnits, totalUnits: totalUnits}]   
+            } 
         })
         setRooms(roomsWithAttribute);
         setInputsVisible(false);
@@ -48,23 +48,6 @@ const Attribute = ({ rooms, setRooms, totalRent }) => {
                 <button onClick={onAttributeSubmit}>Submit Attribute Details</button>
               </div>
             )}
-            <div className="display">
-                {rooms.map((room) => {
-                    return room.attributes.map((attribute) => {
-                        if (attribute.attributeName === attributeName) {
-                            return (
-                                <div key={room.name} className="attribute-breakdown">
-                                    <div>Room: {attribute.name}</div>
-                                    <div>Attribute Name: {attribute.attributeName}</div>
-                                    <div>Units: {attribute.roomUnits}</div>
-                                    <div>Rent Share: {calculateAttributePricePerRoom(attribute.roomUnits, attribute.totalUnits, attributePercentage, totalRent)}</div>
-                                </div>
-                            )
-                        }
-                        return null;
-                    })
-                })}
-            </div>
         </div>
     );
 }

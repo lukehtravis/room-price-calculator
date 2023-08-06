@@ -1,0 +1,28 @@
+.table {
+    margin: 0 auto;
+}
+
+.table-header {
+
+}
+
+.table-header-row {
+    display: flex;
+    justify-content: space-between;
+}
+.table-header-cell {
+
+}
+
+.table-body {
+
+}
+
+.table-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.table-cell {
+
+}
