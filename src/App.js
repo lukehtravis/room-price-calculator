@@ -2,6 +2,7 @@ import './App.css';
 import React, {useState} from 'react';
 import NumberInput from './components/NumberInput';
 import Attribute from './components/Attribute';
+import Matrix from './components/Matrix';
 
 function App() {
   const [totalRent, setTotalRent] = useState(0);
@@ -31,21 +32,25 @@ function App() {
   const addAttribute = () => {
     setAttributes(attributes.concat("clicked"));
   }
-
+  console.log(rooms);
   return (
     <div className="App">
-      <div>
+      <div className='room-rent-configurator'>
         <NumberInput name="totalRent" value={totalRent} onNumberChange={setTotalRent} />
         <NumberInput name="numberOfRooms" value={numberOfRooms} onNumberChange={setNumberOfRooms} />
         <button onClick={() => makeRooms(numberOfRooms)}>Create Rooms</button>
         {rooms.length > 0  && (
-          <div>
-          <button onClick={addAttribute}>Add Attribute</button>
-          {attributes.map((attribute, i) => {
-            return <Attribute rooms={rooms} setRooms={setRooms} totalRent={totalRent} />;
-          })}
+          <div className='attribute-section'>
+            <button onClick={addAttribute}>Add Attribute</button>
+            {attributes.map((attribute, i) => {
+              return <Attribute rooms={rooms} setRooms={setRooms} totalRent={totalRent} />;
+            })}
           </div>
         )}
+        {rooms[0] && rooms[0].attributes.length > 0 && (
+          <Matrix rooms={rooms} />
+        )
+        }
       </div>
     </div>
   );
