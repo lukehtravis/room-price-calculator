@@ -1,5 +1,6 @@
+import { roundNumber } from "./roundNumber";
 const calculateAttributePricePerRoom = (roomUnits, totalAttributeUnits, attributePercentage, totalRent) => {
-    return roomUnits / totalAttributeUnits * ((attributePercentage/100) * totalRent);
+    return roundNumber(roomUnits / totalAttributeUnits * ((attributePercentage/100) * totalRent), 2);
 }
 
 export default calculateAttributePricePerRoom;

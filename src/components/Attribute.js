@@ -13,8 +13,6 @@ const Attribute = ({ rooms, setRooms, totalRent, attributePercentageTotal, setAt
     const [roomAttributes, setRoomAttributes] = useState([]);
     const onAttributeDefine = (event) => {
         event.preventDefault();
-        
-        console.log("attributePercentageTotal", attributePercentageTotal, "attributePercentage", attributePercentage, "total", attributePercentageTotal + attributePercentage)
         if ((attributePercentageTotal + attributePercentage) > 100) {
             alert(`Attribute percentage total cannot exceed 1. Current total is ${attributePercentageTotal + attributePercentage}`);
             return;
@@ -28,7 +26,10 @@ const Attribute = ({ rooms, setRooms, totalRent, attributePercentageTotal, setAt
         event.preventDefault();
         const totalUnits = calculateUnitTotals(roomAttributes);
         const roomsWithAttribute = rooms.map((room) => {
-            const roomUnits = Number(roomAttributes.find((roomAttribute) => roomAttribute.name === room.name).value)
+            let roomUnits = 0
+            if (roomAttributes.find((roomAttribute) => roomAttribute.name === room.name)) {
+                roomUnits = Number(roomAttributes.find((roomAttribute) => roomAttribute.name === room.name).value)
+            }
             return {
                 ...room,
                 attributes: [...room.attributes, {attributeName, name: room.name, cost: calculateAttributePricePerRoom(roomUnits, totalUnits, attributePercentage, totalRent), roomUnits: roomUnits, totalUnits: totalUnits}]   
