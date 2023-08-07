@@ -26,7 +26,10 @@ const Attribute = ({ rooms, setRooms, totalRent, attributePercentageTotal, setAt
         event.preventDefault();
         const totalUnits = calculateUnitTotals(roomAttributes);
         const roomsWithAttribute = rooms.map((room) => {
-            const roomUnits = Number(roomAttributes.find((roomAttribute) => roomAttribute.name === room.name).value)
+            let roomUnits = 0
+            if (roomAttributes.find((roomAttribute) => roomAttribute.name === room.name)) {
+                roomUnits = Number(roomAttributes.find((roomAttribute) => roomAttribute.name === room.name).value)
+            }
             return {
                 ...room,
                 attributes: [...room.attributes, {attributeName, name: room.name, cost: calculateAttributePricePerRoom(roomUnits, totalUnits, attributePercentage, totalRent), roomUnits: roomUnits, totalUnits: totalUnits}]   

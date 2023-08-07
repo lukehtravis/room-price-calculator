@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import './matrix.css'
 // rooms = [{name: 1, attributes: [{name: "test", percentage: 0.5, units: 2}]}]
 const Matrix = ({rooms}) => {
