@@ -9,6 +9,7 @@ function App() {
   const [numberOfRooms, setNumberOfRooms] = useState(0);
   const [rooms, setRooms] = useState([]);
   const [attributes, setAttributes] = useState([]);
+  const [attributePercentageTotal, setAttributePercentageTotal] = useState(0);
   // The way it will work is that 
   // 1. We define a total rent share
   // 2. We define a number of rooms
@@ -43,7 +44,7 @@ function App() {
           <div className='attribute-section'>
             <button onClick={addAttribute}>Add Attribute</button>
             {attributes.map((attribute, i) => {
-              return <Attribute rooms={rooms} setRooms={setRooms} totalRent={totalRent} />;
+              return <Attribute attributePercentageTotal={attributePercentageTotal} setAttributePercentageTotal={setAttributePercentageTotal} rooms={rooms} setRooms={setRooms} totalRent={totalRent} />;
             })}
           </div>
         )}
