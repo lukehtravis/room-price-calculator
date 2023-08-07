@@ -2,7 +2,7 @@ import React from 'react';
 
 const NumberInput = ({name = "",  value = null, onNumberChange, percentage = false }) => {
   const handleInputChange = (event) => {
-    const newNumber = event.target.value;
+    const newNumber = Number(event.target.value);
     if ((newNumber > 0 && newNumber < 101 && percentage) || (!percentage && newNumber > 0)) {
       onNumberChange(newNumber);
     }
