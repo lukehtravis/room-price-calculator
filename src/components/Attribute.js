@@ -13,8 +13,6 @@ const Attribute = ({ rooms, setRooms, totalRent, attributePercentageTotal, setAt
     const [roomAttributes, setRoomAttributes] = useState([]);
     const onAttributeDefine = (event) => {
         event.preventDefault();
-        
-        console.log("attributePercentageTotal", attributePercentageTotal, "attributePercentage", attributePercentage, "total", attributePercentageTotal + attributePercentage)
         if ((attributePercentageTotal + attributePercentage) > 100) {
             alert(`Attribute percentage total cannot exceed 1. Current total is ${attributePercentageTotal + attributePercentage}`);
             return;
