@@ -26,7 +26,6 @@ const Room = ({name, setRoomAttributes, roomAttributes}) => {
     }
     return (
         <div>
-            <div>{name}</div>
             <NumberInput name={name} value={value} onNumberChange={onNumberChange} />
         </div>
     )

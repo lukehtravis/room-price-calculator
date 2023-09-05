@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import NumberInput from '../components/NumberInput';
-import TextInput from '../components/TextInput';
 import Attribute from '../components/Attribute';
 import Matrix from '../components/Matrix';
 
@@ -15,11 +14,9 @@ const Calculator = () => {
   const [attributePercentageTotal, setAttributePercentageTotal] = useState(0);
 
   const createPreRooms = (numberOfRooms) => {
-    console.log("numberOfRooms inside createPreRooms: ", numberOfRooms)
     const emptyRoomNames = [...Array(Number(numberOfRooms))].map((u, i) => {
       return {number: i, name: ""}
     })
-    console.log("emptyRoomNames:", emptyRoomNames)
     setRoomNames(emptyRoomNames)
     setRoomNamesDialogue(true)
   }
@@ -44,7 +41,6 @@ const Calculator = () => {
     setAttributes(attributes.concat("clicked"));
   }
 
-  console.log("roomNames: ", roomNames)
   return (
     <div className="App">
       <div className='room-rent-configurator'>
@@ -72,7 +68,7 @@ const Calculator = () => {
         {rooms.length > 0  && (
           <div className='attribute-section'>
             <button onClick={() => addAttribute()}>Add Attribute</button>
-            {attributes.map((attribute, i) => {
+            {attributes.map(() => {
               return <Attribute attributePercentageTotal={attributePercentageTotal} setAttributePercentageTotal={setAttributePercentageTotal} rooms={rooms} setRooms={setRooms} totalRent={totalRent} />;
             })}
           </div>
