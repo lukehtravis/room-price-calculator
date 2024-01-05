@@ -1,41 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import NumberInput from '../components/NumberInput';
 import Attribute from '../components/Attribute';
 import Matrix from '../components/Matrix';
+import { RoomsContext } from '../context/RoomsContext'
+import { initialRentSubmit } from '../utils/handlers/rentHandlers';
+import { createPreRooms, makeRooms } from '../utils/handlers/roomCreation';
 
 const Calculator = () => {
-  const [totalRent, setTotalRent] = useState(0);
-  const [rentTotalSubmitted, setRentTotalSubmitted] = useState(false);
-  const [numberOfRooms, setNumberOfRooms] = useState(0);
-  const [roomNamesDialogue, setRoomNamesDialogue] = useState(false)
-  const [roomNames, setRoomNames] = useState([])
-  const [rooms, setRooms] = useState([]);
-  const [attributes, setAttributes] = useState([]);
-  const [attributePercentageTotal, setAttributePercentageTotal] = useState(0);
-
-  const createPreRooms = (numberOfRooms) => {
-    const emptyRoomNames = [...Array(Number(numberOfRooms))].map((u, i) => {
-      return {number: i, name: ""}
-    })
-    setRoomNames(emptyRoomNames)
-    setRoomNamesDialogue(true)
-  }
-
-  const makeRooms = (roomNames) => {
-      // We want to make an array of objects with a name: string property and an attributes:Array property
-      // the input numberOfRooms is an array with objects of number: number and name: string 
-      let finalRooms = roomNames.map(room => {
-        return {name: room.name, attributes: []}
-      })
-      setRooms(finalRooms);
-  }
-
-  const onNameUpdate = (event, roomNames, i) => {
-    const updatedRoomName = {...roomNames[i], name: event.target.value};
-    const newRoomNames = [...roomNames];
-    newRoomNames[i] = updatedRoomName
-    setRoomNames(newRoomNames)
-  }
+  const [rooms, setRooms] = useState([]); // moved to context
+  const [attributes, setAttributes] = useState([]); // moved to context
+  const [attributePercentageTotal, setAttributePercentageTotal] = useState(0); // should get rid of this, should be derived
+  const {rent, setRent} = useContext(RoomsContext)
 
   const addAttribute = () => {
     setAttributes(attributes.concat("clicked"));
@@ -44,39 +19,41 @@ const Calculator = () => {
   return (
     <div className="App">
       <div className='room-rent-configurator'>
-        <div>
-          <NumberInput name="totalRent" value={totalRent} onNumberChange={setTotalRent} />
-          <button onClick={() => setRentTotalSubmitted(true)}>Set Rent Total</button>
-        </div>
-        {(rentTotalSubmitted && rooms.length === 0) && (
+        <form onSubmit={(e) => initialRentSubmit(e, setRent)}>
+          <input type="number" name="totalRent" min="0" />
+          <button type='submit'>Set Rent Total</button>
+        </form>
+        {rent > 0 && (
           <div>
-            <NumberInput name="numberOfRooms" value={numberOfRooms} onNumberChange={setNumberOfRooms} />
-            <button onClick={() => createPreRooms(numberOfRooms)}>Submit Number Of Rooms</button>
-            {roomNamesDialogue && (
-              <div>
-                {roomNames.map((x, i) =>
-                  <div key={x}>
+              <form onSubmit={(e) => createPreRooms(e, setRooms)} style={{display: `${rooms.length > 0 ? 'none' : 'block'}`}}>
+                <input type='number' name="numberOfRooms" />
+                <button type="submit">Submit Number Of Rooms</button>
+              </form>
+            {rooms.length > 0 && (
+              <form onSubmit={(e) => makeRooms(e, setRooms)}>
+                {rooms.map((x, i) =>
+                  <div key={x.name}>
                     <label>{`Room ${i + 1} Name`}</label>
-                    <input type='text' value={x.name} onChange={(event) => onNameUpdate(event, roomNames, i)} />
+                    <input type='text' name={`room-${i}`} />
                   </div>
                 )}
-              </div>
+                <button type="submit">Create Rooms</button>
+              </form>
             )}
-            <button onClick={() => makeRooms(roomNames)}>Create Rooms</button>
           </div>
         )}
-        {rooms.length > 0  && (
+        {/* {rooms.length > 0  && (
           <div className='attribute-section'>
             <button onClick={() => addAttribute()}>Add Attribute</button>
             {attributes.map(() => {
               return <Attribute attributePercentageTotal={attributePercentageTotal} setAttributePercentageTotal={setAttributePercentageTotal} rooms={rooms} setRooms={setRooms} totalRent={totalRent} />;
             })}
           </div>
-        )}
-        {rooms[0] && rooms[0].attributes.length > 0 && (
+        )} */}
+        {/* {rooms[0] && rooms[0].attributes.length > 0 && (
           <Matrix rooms={rooms} />
         )
-        }
+        } */}
       </div>
     </div>
   );
