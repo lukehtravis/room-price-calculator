@@ -1,63 +1,57 @@
-import React, {useState} from "react";
-import NumberInput from "./NumberInput";
-import TextInput from "./TextInput";
-import Room from "./Room";
-import calculateUnitTotals from "../utils/calculateUnitTotals";
-import calculateAttributePricePerRoom from "../utils/calculateAttributePricePerRoom";
+import React, {useState, useContext} from "react";
+import { RoomsContext } from "../context/RoomsContext";
 
-const Attribute = ({ rooms, setRooms, totalRent, attributePercentageTotal, setAttributePercentageTotal }) => {
-    const [attributeName, setAttributeName] = useState("");
-    const [attributePercentage, setAttributePercentage] = useState(0);
+const Attribute = () => {
     const [attribute, setAttribute] = useState(null)
     const [inputsVisible, setInputsVisible] = useState(false);
-    const [roomAttributes, setRoomAttributes] = useState([]);
-    const onAttributeDefine = (event) => {
+    const {rooms,setRooms,attributes, setAttributes} = useContext(RoomsContext)
+
+    const defineAttribute = (event) => {
         event.preventDefault();
+        const attributePercentageTotal = attributes.reduce((accumulator, currentValue) => accumulator + currentValue.percentageOfRent, 0)
+        const attributePercentage = Number(event.target.elements.attributePercentage.value)
         if ((attributePercentageTotal + attributePercentage) > 100) {
             alert(`Attribute percentage total cannot exceed 100. Current total is ${attributePercentageTotal + attributePercentage}`);
             return;
         }
-        setAttribute({attributeName, attributePercentage});
-        setAttributePercentageTotal(attributePercentageTotal + attributePercentage);
+        setAttribute({name: event.target.elements.attributeName.value, percentageOfRent: attributePercentage});
         setInputsVisible(true);
     }
 
-    const onAttributeSubmit = (event) => {
+    const applyAttributeToRooms = (event) => {
         event.preventDefault();
-        const totalUnits = calculateUnitTotals(roomAttributes);
-        const roomsWithAttribute = rooms.map((room) => {
-            let roomUnits = 0
-            if (roomAttributes.find((roomAttribute) => roomAttribute.name === room.name)) {
-                roomUnits = Number(roomAttributes.find((roomAttribute) => roomAttribute.name === room.name).value)
-            }
-            return {
-                ...room,
-                attributes: [...room.attributes, {attributeName, name: room.name, cost: calculateAttributePricePerRoom(roomUnits, totalUnits, attributePercentage, totalRent), roomUnits: roomUnits, totalUnits: totalUnits}]   
-            } 
+        const updatedRooms = rooms.map((room) => {
+            room.roomAttributes.push({name: attribute.name, units: Number(event.target.elements[`${room.name}`].value)})
+            return room
         })
-        setRooms(roomsWithAttribute);
+        
+        setRooms(updatedRooms);
+        setAttributes([...attributes, attribute])
+        setAttribute(null)
         setInputsVisible(false);
     }
 
     return (
         <div className="attribute">
-           {!attribute && <div className="attribute-entry">
+           {!attribute && <form onSubmit={defineAttribute} className="attribute-entry">
                 <div className="enter-attribute-name">
-                    <TextInput name={"Attribute Name"} value={attributeName} onTextChange={setAttributeName} />
+                    <label forHtml="attributeName">Attribute Name</label>
+                    <input name={"attributeName"} type="text" />
                 </div>
                 <div className="attribute-percentage">
-                    <NumberInput name={"Attribute Percentage"} percentage={true} value={attributePercentage} onNumberChange={setAttributePercentage} />
+                    <label forHtml="attributePercentage">Attribute Percentage</label>
+                    <input name="attributePercentage" min="1" max="100" />
                 </div>
-                <button onClick={onAttributeDefine}>Create Attribute</button>
-            </div>}
+                <button type="submit">Create Attribute</button>
+            </form>}
             {inputsVisible && (
-              <div className="room-configuration">
-                {rooms.map((room) => <Room key={room.name} roomAttributes={roomAttributes} setRoomAttributes={setRoomAttributes} name={room.name}/>)}
-                <button onClick={onAttributeSubmit}>Submit Attribute Details</button>
-              </div>
+              <form onSubmit={applyAttributeToRooms} className="room-configuration">
+                {rooms.map((room) => <div key={room.name}><label forHtml={room.name}>{room.name}</label><input type="number" name={room.name}/></div>)}
+                <button type="submit">Submit Attribute Details</button>
+              </form>
             )}
         </div>
-    );
+    )
 }
 
 export default Attribute;

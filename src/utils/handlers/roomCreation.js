@@ -7,7 +7,7 @@ const createPreRooms = (e, setRooms) => {
     setRooms([...initialRooms])
 }
 
-const makeRooms = (e, setRooms) => {
+const makeRooms = (e, setRooms, setRoomsHaveBeenCreated) => {
   e.preventDefault()
   let editedRooms = []
 
@@ -16,7 +16,7 @@ const makeRooms = (e, setRooms) => {
       editedRooms[i] = {name: e.target.elements[i].value, roomAttributes: []}
     } 
   }
-
+  setRoomsHaveBeenCreated(true)
   setRooms(editedRooms)
 }
 
