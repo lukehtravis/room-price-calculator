@@ -2,23 +2,24 @@ import React, { useContext } from 'react'
 import './matrix.css'
 import { RoomsContext } from '../context/RoomsContext'
 import calculateAttributePricePerRoom from '../utils/calculateAttributePricePerRoom'
+import { roundNumber } from '../utils/roundNumber'
 
 const Matrix = () => {
   const { rooms, attributes, rent } = useContext(RoomsContext)
   const width = 800
   const attributeNames = attributes.map((attribute) => attribute.name)
   const cellWidth = width / (attributeNames.length + 2)
-  let rentTotal = 0
-  const attributeTotals = {}
+  const attributeUnitTotals = {}
   rooms.forEach((room) => {
     room.roomAttributes.forEach((attribute) => {
-      if (attribute.name in attributeTotals) {
-        attributeTotals[attribute.name] += attribute.units
+      if (attribute.name in attributeUnitTotals) {
+        attributeUnitTotals[attribute.name] += attribute.units
       } else {
-        attributeTotals[attribute.name] = attribute.units
+        attributeUnitTotals[attribute.name] = attribute.units
       }
     })
   })
+  const attributeColumnTotals = {}
   return (
     <div className='container'>
       <div className='table' style={{ width: width }}>
@@ -53,23 +54,32 @@ const Matrix = () => {
                   const attributePriceForThisRoom =
                     calculateAttributePricePerRoom(
                       attribute.units,
-                      attributeTotals[attribute.name],
+                      attributeUnitTotals[attribute.name],
                       attributes[i].percentageOfRent,
                       rent
                     )
                   totalRoomCost += attributePriceForThisRoom
+
+                  if (attribute.name in attributeColumnTotals) {
+                    attributeColumnTotals[attribute.name] +=
+                      attributePriceForThisRoom
+                  } else {
+                    attributeColumnTotals[attribute.name] =
+                      attributePriceForThisRoom
+                  }
+
                   return (
                     <div
                       key={i}
                       className='table-cell'
                       style={{ width: cellWidth }}
                     >
-                      ${totalRoomCost}
+                      ${roundNumber(totalRoomCost, 2)}
                     </div>
                   )
                 })}
                 <div style={{ width: cellWidth }} className='table-cell'>
-                  ${totalRoomCost}
+                  ${roundNumber(totalRoomCost, 2)}
                 </div>
               </div>
             )
@@ -78,21 +88,25 @@ const Matrix = () => {
             <div style={{ width: cellWidth }} className='table-cell'>
               Totals
             </div>
-            {Object.keys(attributeTotals).map((attributeKey, index) => {
-              const attributeTotal = attributeTotals[attributeKey]
-              rentTotal += attributeTotal
-              return (
-                <div
-                  key={index}
-                  className='table-cell'
-                  style={{ width: cellWidth }}
-                >
-                  ${attributeTotal}
-                </div>
-              )
-            })}
+            {Object.values(attributeColumnTotals).map(
+              (attributeValue, index) => {
+                return (
+                  <div
+                    key={index}
+                    className='table-cell'
+                    style={{ width: cellWidth }}
+                  >
+                    ${attributeValue}
+                  </div>
+                )
+              }
+            )}
             <div className='table-cell' style={{ width: cellWidth }}>
-              ${rentTotal}
+              $
+              {Object.values(attributeColumnTotals).reduce(
+                (accumulator, currentValue) => accumulator + currentValue,
+                0
+              )}
             </div>
           </div>
         </div>

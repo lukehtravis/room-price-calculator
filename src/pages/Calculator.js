@@ -9,10 +9,11 @@ const Calculator = () => {
   const [roomsHaveBeenCreated, setRoomsHaveBeenCreated] = useState(false)
   const { rent, setRent, attributes, rooms, setRooms } =
     useContext(RoomsContext)
-  console.log('rooms:', rooms, ' attributes: ', attributes, ' rent:', rent)
+
   return (
     <div className='App'>
       <div className='room-rent-configurator'>
+        {/** Render form for choosing rent amount */}
         <form
           onSubmit={(e) => initialRentSubmit(e, setRent)}
           style={{ display: `${roomsHaveBeenCreated ? 'none' : 'block'}` }}
@@ -25,6 +26,7 @@ const Calculator = () => {
           <div
             style={{ display: `${roomsHaveBeenCreated ? 'none' : 'block'}` }}
           >
+            {/** Render form for choosing number of rooms in the house */}
             <form
               onSubmit={(e) => createPreRooms(e, setRooms)}
               style={{ display: `${rooms.length > 0 ? 'none' : 'block'}` }}
@@ -52,9 +54,11 @@ const Calculator = () => {
         )}
         {roomsHaveBeenCreated && (
           <div className='attribute-section'>
+            {/** Render form for adding cost attributes (i.e. square feet, privacy, closet) */}
             <Attribute />
           </div>
         )}
+        {/** Display the table of values */}
         {attributes.length > 0 && <Matrix rooms={rooms} />}
       </div>
     </div>
