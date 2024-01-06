@@ -1,11 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./about.css";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './about.css'
 
 const About = () => {
   return (
-    <div className="container">
-      <Link to={"calculator"}>Go To Calculator</Link>
+    <div className='container'>
+      <Link to={'calculator'}>Go To Calculator</Link>
       <p>
         Welcome to the room price calculator! The tool is designed to help
         groups of people calculate how to split up rent between multiple rooms
@@ -35,7 +35,7 @@ const About = () => {
       </p>
 
       <div>
-        Square Footage = 80% =&gt; <span className="purple">$800</span>
+        Square Footage = 80% =&gt; <span className='purple'>$800</span>
       </div>
       <div>Closets = 10% =&gt; $100</div>
       <div>Privacy = 10% =&gt; $100</div>
@@ -54,15 +54,15 @@ const About = () => {
 
       <br />
       <div>
-        Room A = 300sqft =&gt; 300/<span className="red">400</span> =&gt; 0.75
-        =&gt; 0.75 x <span className="purple">$800</span> =&gt; $600
+        Room A = 300sqft =&gt; 300/<span className='red'>400</span> =&gt; 0.75
+        =&gt; 0.75 x <span className='purple'>$800</span> =&gt; $600
       </div>
       <div>
-        Room B = 100sqft =&gt; 100/<span className="red">400</span> =&gt; 0.25
-        =&gt; 0.25 x <span className="purple">$800</span> =&gt; $200
+        Room B = 100sqft =&gt; 100/<span className='red'>400</span> =&gt; 0.25
+        =&gt; 0.25 x <span className='purple'>$800</span> =&gt; $200
       </div>
       <div>
-        Total Units = <span className="red">400</span>
+        Total Units = <span className='red'>400</span>
       </div>
 
       <p>
@@ -78,7 +78,7 @@ const About = () => {
 
       <p>Hope you enjoy!</p>
     </div>
-  );
-};
+  )
+}
 
-export default About;
+export default About
