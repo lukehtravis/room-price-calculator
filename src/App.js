@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import About from "./pages/About";
 import Calculator from "./pages/Calculator";
-import {RoomsContextProvider} from "./context/RoomsContext"
+import { RoomsContextProvider } from "./context/RoomsContext";
 
 function App() {
   return (
