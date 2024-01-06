@@ -45,29 +45,18 @@ const Matrix = () => {
           {rooms.map((room, i) => {
             let totalRoomCost = 0;
             return (
-              <div className="table-row">
+              <div key={i} className="table-row">
                 <div style={{ width: cellWidth }} className="table-cell">
                   {room.name}
                 </div>
                 {room.roomAttributes.map((attribute, i) => {
                   totalRoomCost += attribute.units;
-                  // roomUnits, totalAttributeUnits, attributePercentage, totalRent
-                  console.log(
-                    attribute.units,
-                    attributeTotals[attribute.name],
-                    attributes[i].percentageOfRent,
-                    rent,
-                  );
-                  console.log(
-                    calculateAttributePricePerRoom(
-                      attribute.units,
-                      attributeTotals[attribute.name],
-                      attributes[i].percentageOfRent,
-                      rent,
-                    ),
-                  );
                   return (
-                    <div className="table-cell" style={{ width: cellWidth }}>
+                    <div
+                      key={i}
+                      className="table-cell"
+                      style={{ width: cellWidth }}
+                    >
                       $
                       {calculateAttributePricePerRoom(
                         attribute.units,
@@ -88,11 +77,15 @@ const Matrix = () => {
             <div style={{ width: cellWidth }} className="table-cell">
               Totals
             </div>
-            {Object.keys(attributeTotals).map((attributeKey) => {
+            {Object.keys(attributeTotals).map((attributeKey, index) => {
               const attributeTotal = attributeTotals[attributeKey];
               rentTotal += attributeTotal;
               return (
-                <div className="table-cell" style={{ width: cellWidth }}>
+                <div
+                  key={index}
+                  className="table-cell"
+                  style={{ width: cellWidth }}
+                >
                   ${attributeTotal}
                 </div>
               );
