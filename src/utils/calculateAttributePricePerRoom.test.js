@@ -3,7 +3,6 @@ import { roundNumber } from "./roundNumber";
 
 describe("calculateAttributePricePerRoom", () => {
   it("should calculate the attribute price per room correctly", () => {
-    // Example test case
     const roomUnits = 2;
     const totalAttributeUnits = 10;
     const attributePercentage = 20;
@@ -34,7 +33,7 @@ describe("calculateAttributePricePerRoom", () => {
   });
 
   it("should handle decimal values correctly", () => {
-    // Example test case with decimal values
+    // decimal values
     const roomUnits = 2.5;
     const totalAttributeUnits = 10;
     const attributePercentage = 25.5;

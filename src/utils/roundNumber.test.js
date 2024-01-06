@@ -1,4 +1,4 @@
-import { roundNumber } from "./roundNumber"; // Replace 'your-module' with the actual module path
+import { roundNumber } from "./roundNumber";
 
 describe("roundNumber", () => {
   it("should round a number to the specified number of decimals", () => {
