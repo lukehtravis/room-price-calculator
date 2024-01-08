@@ -2,9 +2,6 @@ import React, { useState, useContext } from 'react'
 import { RoomsContext } from '../context/RoomsContext'
 import { defineAttribute } from '../utils/handlers/attributeHandlers'
 
-// This component is a creation interface for new attributes. We create new attributes using the form fields, and store the
-// new attributes in our attributes state and in our rooms state
-
 const Attribute = () => {
   const [attribute, setAttribute] = useState(null)
   const [inputsVisible, setInputsVisible] = useState(false)
@@ -31,36 +28,57 @@ const Attribute = () => {
   }
 
   return (
-    <div className='attribute'>
+    <div className='attribute' data-testid='attribute-component'>
       {!attribute && (
         <form
           onSubmit={(e) =>
             defineAttribute(e, attributes, setAttribute, setInputsVisible)
           }
           className='attribute-entry'
+          data-testid='attribute-entry-form'
         >
-          {/** here we create form fields so users can define a new attributes name and what percent of total rent it is responsible for */}
           <div className='enter-attribute-name'>
             <label htmlFor='attributeName'>Attribute Name</label>
-            <input name={'attributeName'} type='text' />
+            <input
+              name={'attributeName'}
+              type='text'
+              data-testid='attribute-name-input'
+            />
           </div>
           <div className='attribute-percentage'>
             <label htmlFor='attributePercentage'>Attribute Percentage</label>
-            <input type='number' name='attributePercentage' min='1' max='100' />
+            <input
+              type='number'
+              name='attributePercentage'
+              min='1'
+              max='100'
+              data-testid='attribute-percentage-input'
+            />
           </div>
-          <button type='submit'>Create Attribute</button>
+          <button type='submit' data-testid='create-attribute-button'>
+            Create Attribute
+          </button>
         </form>
       )}
       {inputsVisible && (
-        <form onSubmit={applyAttributeToRooms} className='room-configuration'>
-          {/** here we create form fields so users can input how many units each room gets for this attribute */}
+        <form
+          onSubmit={applyAttributeToRooms}
+          className='room-configuration'
+          data-testid='room-configuration-form'
+        >
           {rooms.map((room) => (
-            <div key={room.name}>
+            <div key={room.name} data-testid={`room-config-${room.name}`}>
               <label htmlFor={room.name}>{room.name}</label>
-              <input type='number' name={room.name} />
+              <input
+                type='number'
+                name={room.name}
+                data-testid={`room-input-${room.name}`}
+              />
             </div>
           ))}
-          <button type='submit'>Submit Attribute Details</button>
+          <button type='submit' data-testid='submit-attribute-details-button'>
+            Submit Attribute Details
+          </button>
         </form>
       )}
     </div>
