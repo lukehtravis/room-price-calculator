@@ -13,52 +13,72 @@ const Calculator = () => {
   return (
     <div className='App'>
       <div className='room-rent-configurator'>
-        {/** Render form for choosing rent amount */}
         <form
           onSubmit={(e) => initialRentSubmit(e, setRent)}
           style={{ display: `${roomsHaveBeenCreated ? 'none' : 'block'}` }}
+          data-testid='rent-form'
         >
           <label htmlFor='totalRent'>Total Rent</label>
-          <input type='number' name='totalRent' min='0' />
-          <button type='submit'>Set Rent Total</button>
+          <input
+            type='number'
+            name='totalRent'
+            min='0'
+            data-testid='total-rent-input'
+          />
+          <button type='submit' data-testid='set-rent-button'>
+            Set Rent Total
+          </button>
         </form>
         {rent > 0 && (
           <div
             style={{ display: `${roomsHaveBeenCreated ? 'none' : 'block'}` }}
+            data-testid='rooms-form-container'
           >
-            {/** Render form for choosing number of rooms in the house */}
             <form
               onSubmit={(e) => createPreRooms(e, setRooms)}
               style={{ display: `${rooms.length > 0 ? 'none' : 'block'}` }}
+              data-testid='rooms-form'
             >
               <label htmlFor='numberOfRooms'>Number Of Rooms</label>
-              <input type='number' name='numberOfRooms' />
-              <button type='submit'>Submit Number Of Rooms</button>
+              <input
+                type='number'
+                name='numberOfRooms'
+                min='1'
+                data-testid='number-of-rooms-input'
+              />
+              <button type='submit' data-testid='submit-rooms-button'>
+                Submit Number Of Rooms
+              </button>
             </form>
             {rooms.length > 0 && (
               <form
                 onSubmit={(e) =>
                   makeRooms(e, setRooms, setRoomsHaveBeenCreated)
                 }
+                data-testid='create-rooms-form'
               >
                 {rooms.map((x, i) => (
-                  <div key={x.name}>
+                  <div key={x.name} data-testid={`room-entry-${i}`}>
                     <label>{`Room ${i + 1} Name`}</label>
-                    <input type='text' name={`room-${i}`} />
+                    <input
+                      type='text'
+                      name={`room-${i}`}
+                      data-testid={`room-name-input-${i}`}
+                    />
                   </div>
                 ))}
-                <button type='submit'>Create Rooms</button>
+                <button type='submit' data-testid='create-rooms-button'>
+                  Create Rooms
+                </button>
               </form>
             )}
           </div>
         )}
         {roomsHaveBeenCreated && (
-          <div className='attribute-section'>
-            {/** Render form for adding cost attributes (i.e. square feet, privacy, closet) */}
+          <div className='attribute-section' data-testid='attribute-section'>
             <Attribute />
           </div>
         )}
-        {/** Display the table of values */}
         {attributes.length > 0 && <Matrix rooms={rooms} />}
       </div>
     </div>
