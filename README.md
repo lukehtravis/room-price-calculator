@@ -76,6 +76,9 @@ We are using a combination of jest for unit tests, and cypress for integration t
 
 To run cypress, type `npx cypress open`, and that should start up the browser and run cypress on the application
 
+The cypress file to run can be located at
+cypress/e2e/calculator.cy.js
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
