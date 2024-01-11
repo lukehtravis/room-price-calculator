@@ -1,9 +1,8 @@
+import { sumAttributePercentage } from '../sumAttributePercentage'
+
 const defineAttribute = (event, attributes, setAttribute, setInputsVisible) => {
   event.preventDefault()
-  const attributePercentageTotal = attributes.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.percentageOfRent,
-    0
-  )
+  const attributePercentageTotal = sumAttributePercentage(attributes)
   const attributePercentage = Number(
     event.target.elements.attributePercentage.value
   )

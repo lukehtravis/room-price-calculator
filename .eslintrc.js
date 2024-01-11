@@ -1,3 +1,9 @@
 module.exports = {
-  extends: ['react-app', 'eslint:recommended', 'plugin:react/recommended', 'plugin:react-hooks/recommended']
-}
+  extends: [
+    "react-app",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended",
+  ],
+};

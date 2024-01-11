@@ -1,0 +1,36 @@
+import { useContext } from 'react'
+import { RoomsContext } from '../context/RoomsContext'
+import Attribute from './Attribute'
+
+const EditAttributes = () => {
+  const { attributes, setAttributes, setShowEditAttributes } =
+    useContext(RoomsContext)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    let newAttributes = []
+    Object.entries(e.target.elements).forEach(([key, value]) => {
+      if (key in attributes) {
+        newAttributes.push({
+          name: `${value.name}`,
+          percentageOfRent: `${value.value}`,
+        })
+      }
+    })
+    setAttributes(newAttributes)
+    setShowEditAttributes(false)
+  }
+
+  return (
+    <div className='edit-attributes'>
+      <form className='modify-attributes-form' onSubmit={handleSubmit}>
+        {attributes.map((attribute) => {
+          return <Attribute key={attribute.name} attribute={attribute} />
+        })}
+        <button type='submit'>Modify Attributes</button>
+      </form>
+    </div>
+  )
+}
+
+export default EditAttributes
