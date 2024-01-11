@@ -1,9 +1,14 @@
-const defineAttribute = (event, attributes, setAttribute, setInputsVisible) => {
-  event.preventDefault()
-  const attributePercentageTotal = attributes.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.percentageOfRent,
+const sumAttributePercentage = (attributes) => {
+  return attributes.reduce(
+    (accumulator, currentValue) =>
+      Number(accumulator) + Number(currentValue.percentageOfRent),
     0
   )
+}
+
+const defineAttribute = (event, attributes, setAttribute, setInputsVisible) => {
+  event.preventDefault()
+  const attributePercentageTotal = sumAttributePercentage(attributes)
   const attributePercentage = Number(
     event.target.elements.attributePercentage.value
   )
@@ -22,4 +27,4 @@ const defineAttribute = (event, attributes, setAttribute, setInputsVisible) => {
   setInputsVisible(true)
 }
 
-export { defineAttribute }
+export { defineAttribute, sumAttributePercentage }

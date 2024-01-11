@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import './matrix.css'
 import { RoomsContext } from '../context/RoomsContext'
 import calculateAttributePricePerRoom from '../utils/calculateAttributePricePerRoom'
