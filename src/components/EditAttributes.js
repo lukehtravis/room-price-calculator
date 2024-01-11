@@ -19,10 +19,11 @@ const EditAttributes = () => {
       }
     })
 
+    console.log(sumAttributePercentage(newAttributes))
     if (sumAttributePercentage(newAttributes) > 100) {
       alert(
         `Unfortunately your attribute percentage is ${sumAttributePercentage(
-          attributes
+          newAttributes
         )}, which is over 100. Try and  modify things so that they add up to less and try again.`
       )
       return
@@ -34,11 +35,17 @@ const EditAttributes = () => {
 
   return (
     <div className='edit-attributes'>
-      <form className='modify-attributes-form' onSubmit={handleSubmit}>
+      <form
+        data-testid='submit-attribute-changes'
+        className='modify-attributes-form'
+        onSubmit={handleSubmit}
+      >
         {attributes.map((attribute) => {
           return <Attribute key={attribute.name} attribute={attribute} />
         })}
-        <button type='submit'>Modify Attributes</button>
+        <button data-testid='edit-attributes-button' type='submit'>
+          Modify Attributes
+        </button>
       </form>
     </div>
   )

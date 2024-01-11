@@ -92,7 +92,11 @@ const Calculator = () => {
         {showEditAttributes && <EditAttributes />}
         {attributes.length > 0 && <Matrix rooms={rooms} />}
         {attributes.length > 0 && (
-          <button onClick={() => setShowEditAttributes(true)} type='button'>
+          <button
+            data-testid='generate-edit-attributes-dialogue'
+            onClick={() => setShowEditAttributes(true)}
+            type='button'
+          >
             Edit Attributes
           </button>
         )}

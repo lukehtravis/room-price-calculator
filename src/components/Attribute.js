@@ -11,6 +11,7 @@ const Attribute = ({ attribute }) => {
         name={attribute.name}
         id={attribute.name}
         defaultValue={attribute.percentageOfRent}
+        data-testid={`edit-attribute-input-${attribute.name}`}
       />
     </div>
   )

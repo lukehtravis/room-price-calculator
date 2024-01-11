@@ -1,4 +1,4 @@
-describe("Calculator Form Tests", () => {
+describe("Create Rooms and Attributes Tests", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000/calculator");
   });
@@ -17,25 +17,48 @@ describe("Calculator Form Tests", () => {
   });
 
   it("prevents user from adding percentages more than 100", () => {
-    // Stub the alert and store the message in a variable
-    let alertMessage;
-    cy.on("window:alert", (msg) => {
-      alertMessage = msg;
-    });
     createRentAndRooms(1000);
     createAttribute("square feet", 90);
     cy.get('[data-testid="attribute-name-input"]').type(`privacy`);
     cy.get('[data-testid="attribute-percentage-input"]').type(`20`);
     cy.get('[data-testid="create-attribute-button"]').click();
+    alertMessage(
+      "Attribute percentage total cannot exceed 100. Current total is 110"
+    );
+  });
+});
 
-    // Assert that the alert was called with the correct message
-    // Cypress itself operates asynchronously. Even though the alert is synchronous and blocking in a typical browser environment, Cypress works around this by not actually rendering the alert in the test browser.
-    // for this reason, we need to test alerts asynchronously
-    cy.wrap(null).then(() => {
-      expect(alertMessage).to.eq(
-        "Attribute percentage total cannot exceed 100. Current total is 110"
-      );
-    });
+describe("Edit Rooms and Attributes Tests", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:3000/calculator");
+  });
+
+  it("Edits attributes correctly", () => {
+    createRentAndRooms(1000);
+    createAttribute("squarefeet", 90);
+    createAttribute("privacy", 10);
+    cy.get('[data-testid="generate-edit-attributes-dialogue"]').click();
+    cy.get('[data-testid="edit-attribute-input-squarefeet"]').clear();
+    cy.get('[data-testid="edit-attribute-input-squarefeet"]').type("80");
+    cy.get('[data-testid="edit-attribute-input-privacy"]').clear();
+    cy.get('[data-testid="edit-attribute-input-privacy"]').type("20");
+    cy.get('[data-testid="edit-attributes-button"]').click();
+    checkTotals(800, 200, 1000);
+  });
+
+  it("Tries to add attributes that sum to more than 100", () => {
+    createRentAndRooms(1000);
+    createAttribute("squarefeet", 90);
+    createAttribute("privacy", 10);
+    cy.get('[data-testid="generate-edit-attributes-dialogue"]').click();
+    cy.get('[data-testid="edit-attribute-input-squarefeet"]').clear();
+    cy.get('[data-testid="edit-attribute-input-squarefeet"]').type("80");
+    cy.get('[data-testid="edit-attribute-input-privacy"]').clear();
+    cy.get('[data-testid="edit-attribute-input-privacy"]').type("30");
+    cy.get('[data-testid="edit-attributes-button"]').click();
+    alertMessage(
+      `Unfortunately your attribute percentage is 110, which is over 100. Try and  modify things so that they add up to less and try again.`
+    );
   });
 });
 
@@ -73,4 +96,18 @@ const checkTotals = (attribute1, attribute2, totalRent) => {
     );
   }
   cy.get('[data-testid="grand-total"]').should("have.text", `$${totalRent}`);
+};
+
+const alertMessage = (message) => {
+  // Assert that the alert was called with the correct message
+  // Cypress itself operates asynchronously. Even though the alert is synchronous and blocking in a typical browser environment, Cypress works around this by not actually rendering the alert in the test browser.
+  // for this reason, we need to test alerts asynchronously
+  // Stub the alert and store the message in a variable
+  let alertMessage;
+  cy.on("window:alert", (msg) => {
+    alertMessage = msg;
+  });
+  cy.wrap(null).then(() => {
+    expect(alertMessage).to.eq(message);
+  });
 };
