@@ -1,8 +1,6 @@
-import { useState } from 'react'
 import PropTypes from 'prop-types'
 
 const Attribute = ({ attribute }) => {
-  const [val, setVal] = useState(attribute.percentageOfRent)
   return (
     <div className='attribute'>
       <label htmlFor={attribute.name}>{attribute.name}</label>
@@ -11,8 +9,8 @@ const Attribute = ({ attribute }) => {
         max='100'
         min='0'
         name={attribute.name}
-        value={val}
-        onChange={(e) => setVal(e.target.val)}
+        id={attribute.name}
+        defaultValue={attribute.percentageOfRent}
       />
     </div>
   )
@@ -21,10 +19,8 @@ const Attribute = ({ attribute }) => {
 export default Attribute
 
 Attribute.propTypes = {
-  attribute: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      percentageOfRent: PropTypes.number.isRequired, // number (1 - 100)
-    })
-  ).isRequired,
+  attribute: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    percentageOfRent: PropTypes.number.isRequired, // number (1 - 100)
+  }),
 }

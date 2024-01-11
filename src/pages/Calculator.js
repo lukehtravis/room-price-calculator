@@ -4,7 +4,7 @@ import Matrix from '../components/Matrix'
 import { RoomsContext } from '../context/RoomsContext'
 import { initialRentSubmit } from '../utils/handlers/rentHandlers'
 import { createPreRooms, makeRooms } from '../utils/handlers/roomCreation'
-import { sumAttributePercentage } from '../utils/sumAttributePercentage'
+import { sumAttributePercentage } from '../utils/handlers/attributeHandlers'
 import EditAttributes from '../components/EditAttributes'
 
 const Calculator = () => {
@@ -32,6 +32,7 @@ const Calculator = () => {
             <input
               type='number'
               name='totalRent'
+              id='totalRent'
               min='0'
               data-testid='total-rent-input'
             />
@@ -51,6 +52,7 @@ const Calculator = () => {
               <input
                 type='number'
                 name='numberOfRooms'
+                id='numberOfRooms'
                 min='1'
                 data-testid='number-of-rooms-input'
               />
@@ -65,10 +67,11 @@ const Calculator = () => {
               >
                 {rooms.map((x, i) => (
                   <div key={x.name} data-testid={`room-entry-${i}`}>
-                    <label>{`Room ${i + 1} Name`}</label>
+                    <label htmlFor={`room-${i}`}>{`Room ${i + 1} Name`}</label>
                     <input
                       type='text'
                       name={`room-${i}`}
+                      id={`room-${i}`}
                       data-testid={`room-name-input-${i}`}
                     />
                   </div>

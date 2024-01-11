@@ -41,6 +41,7 @@ const CreateAttributes = () => {
             <label htmlFor='attributeName'>Attribute Name</label>
             <input
               name={'attributeName'}
+              id={'attributeName'}
               type='text'
               data-testid='attribute-name-input'
             />
@@ -50,6 +51,7 @@ const CreateAttributes = () => {
             <input
               type='number'
               name='attributePercentage'
+              id='attributePercentage'
               min='1'
               max='100'
               data-testid='attribute-percentage-input'
@@ -72,6 +74,7 @@ const CreateAttributes = () => {
               <input
                 type='number'
                 name={room.name}
+                id={room.name}
                 data-testid={`room-input-${room.name}`}
               />
             </div>

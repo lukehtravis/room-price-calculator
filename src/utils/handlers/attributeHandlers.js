@@ -1,4 +1,10 @@
-import { sumAttributePercentage } from '../sumAttributePercentage'
+const sumAttributePercentage = (attributes) => {
+  return attributes.reduce(
+    (accumulator, currentValue) =>
+      Number(accumulator) + Number(currentValue.percentageOfRent),
+    0
+  )
+}
 
 const defineAttribute = (event, attributes, setAttribute, setInputsVisible) => {
   event.preventDefault()
@@ -21,4 +27,4 @@ const defineAttribute = (event, attributes, setAttribute, setInputsVisible) => {
   setInputsVisible(true)
 }
 
-export { defineAttribute }
+export { defineAttribute, sumAttributePercentage }

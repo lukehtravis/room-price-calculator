@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { RoomsContext } from '../context/RoomsContext'
 import Attribute from './Attribute'
+import { sumAttributePercentage } from '../utils/handlers/attributeHandlers'
 
 const EditAttributes = () => {
   const { attributes, setAttributes, setShowEditAttributes } =
@@ -17,6 +18,16 @@ const EditAttributes = () => {
         })
       }
     })
+
+    if (sumAttributePercentage(newAttributes) > 100) {
+      alert(
+        `Unfortunately your attribute percentage is ${sumAttributePercentage(
+          attributes
+        )}, which is over 100. Try and  modify things so that they add up to less and try again.`
+      )
+      return
+    }
+
     setAttributes(newAttributes)
     setShowEditAttributes(false)
   }
