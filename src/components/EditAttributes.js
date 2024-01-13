@@ -19,7 +19,6 @@ const EditAttributes = () => {
       }
     })
 
-    console.log(sumAttributePercentage(newAttributes))
     if (sumAttributePercentage(newAttributes) > 100) {
       alert(
         `Unfortunately your attribute percentage is ${sumAttributePercentage(

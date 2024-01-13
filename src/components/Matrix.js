@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import './matrix.css'
+import styles from './matrix.module.css'
 import { RoomsContext } from '../context/RoomsContext'
 import calculateAttributePricePerRoom from '../utils/calculateAttributePricePerRoom'
 import { roundNumber } from '../utils/roundNumber'
@@ -7,8 +7,7 @@ import { roundNumber } from '../utils/roundNumber'
 const Matrix = () => {
   const { rooms, attributes, rent } = useContext(RoomsContext)
   const width = 800
-  const attributeNames = attributes.map((attribute) => attribute.name)
-  const cellWidth = width / (attributeNames.length + 2)
+  const cellWidth = width / (attributes.length + 2)
   const attributeUnitTotals = {}
   rooms.forEach((room) => {
     room.roomAttributes.forEach((attribute) => {
@@ -23,9 +22,9 @@ const Matrix = () => {
 
   return (
     <div className='container' data-testid='matrix-component'>
-      <div className='table' style={{ width: width }}>
+      <div className={styles.table} style={{ width: width }}>
         <div className='table-header'>
-          <div className='table-header-row'>
+          <div className={styles['table-header-row']}>
             <div
               className='table-header-cell'
               style={{ width: cellWidth }}
@@ -33,14 +32,25 @@ const Matrix = () => {
             >
               Rooms
             </div>
-            {attributeNames.map((attributeName, i) => (
+            {attributes.map((attribute, i) => (
               <div
                 key={i}
                 style={{ width: cellWidth }}
                 className='table-header-cell'
-                data-testid={`attribute-header-${attributeName}`}
+                data-testid={`attribute-header-${attribute.name}`}
               >
-                {attributeName}
+                <span
+                  className='table-header-cell-name'
+                  data-testid={`column-name`}
+                >
+                  {attribute.name}
+                </span>
+                <span
+                  className={styles['column-percentage']}
+                  data-testid={`column-percentage`}
+                >
+                  {attribute.percentageOfRent}%
+                </span>
               </div>
             ))}
             <div
@@ -58,7 +68,7 @@ const Matrix = () => {
             return (
               <div
                 key={i}
-                className='table-row'
+                className={`${styles['table-row']}`}
                 data-testid={`room-row-${room.name}`}
               >
                 <div
@@ -98,17 +108,24 @@ const Matrix = () => {
                     </div>
                   )
                 })}
-                <div
-                  style={{ width: cellWidth }}
-                  className='table-cell'
-                  data-testid={`total-cost-room-${room.name}`}
-                >
-                  ${roundNumber(totalRoomCost, 2)}
+                <div style={{ width: cellWidth }} className='table-cell'>
+                  <span
+                    className='total-cost-room'
+                    data-testid={`total-cost-room-${room.name}`}
+                  >
+                    ${roundNumber(totalRoomCost, 2)}
+                  </span>
+                  <span
+                    className={styles['total-percentage-room']}
+                    data-testid={`total-percentage-room-${room.name}`}
+                  >
+                    {roundNumber((totalRoomCost / rent) * 100, 2)}%
+                  </span>
                 </div>
               </div>
             )
           })}
-          <div className='table-row'>
+          <div className={`${styles['table-row']}`}>
             <div
               style={{ width: cellWidth }}
               className='table-cell'
@@ -129,18 +146,32 @@ const Matrix = () => {
               )
             )}
             <div
-              className='table-cell'
+              className='table-cell grand-total-cell'
               style={{ width: cellWidth }}
-              data-testid='grand-total'
             >
-              $
-              {roundNumber(
-                Object.values(attributeColumnTotals).reduce(
-                  (acc, curr) => acc + curr,
-                  0
-                ),
-                2
-              )}
+              <span className='grand-total-sum' data-testid='grand-total'>
+                $
+                {roundNumber(
+                  Object.values(attributeColumnTotals).reduce(
+                    (acc, curr) => acc + curr,
+                    0
+                  ),
+                  2
+                )}
+              </span>
+              <span
+                className={styles['grand-total-percent']}
+                data-testid='grand-total-percent'
+              >
+                {roundNumber(
+                  Object.values(attributeColumnTotals).reduce(
+                    (acc, curr) => acc + curr,
+                    0
+                  ) / rent,
+                  2
+                ) * 100}
+                %
+              </span>
             </div>
           </div>
         </div>

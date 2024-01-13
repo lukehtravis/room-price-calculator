@@ -8,6 +8,7 @@ const RoomsContextProvider = ({ children }) => {
   const [attributes, setAttributes] = useState([])
   const [rent, setRent] = useState(0)
   const [showEditAttributes, setShowEditAttributes] = useState(false)
+  const [showEditRent, setShowEditRent] = useState(false)
   return (
     <RoomsContext.Provider
       value={{
@@ -19,6 +20,8 @@ const RoomsContextProvider = ({ children }) => {
         setRent,
         showEditAttributes,
         setShowEditAttributes,
+        showEditRent,
+        setShowEditRent,
       }}
     >
       {children}

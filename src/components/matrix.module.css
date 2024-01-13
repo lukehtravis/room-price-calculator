@@ -26,3 +26,18 @@
 .table-cell {
 
 }
+
+.total-percentage-room {
+    padding-left: 10px;
+    color: teal;
+}
+
+.column-percentage {
+    color: blueviolet;
+    padding-left: 10px
+}
+
+.grand-total-percent {
+    color: red;
+    padding-left: 10px
+}
