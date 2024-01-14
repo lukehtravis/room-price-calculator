@@ -2,30 +2,33 @@
     margin: 0 auto;
 }
 
-.table-header {
+/* .table-header {
 
-}
+} */
 
 .table-header-row {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
 }
+
 .table-header-cell {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+} 
 
-}
-
-.table-body {
-
-}
+/* .table-body {
+   
+}  */
 
 .table-row {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
 }
 
 .table-cell {
-
-}
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+} 
 
 .total-percentage-room {
     padding-left: 10px;

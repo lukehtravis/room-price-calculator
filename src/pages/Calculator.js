@@ -7,6 +7,7 @@ import { sumAttributePercentage } from '../utils/handlers/attributeHandlers'
 import EditAttributes from '../components/EditAttributes'
 import CreateRent from '../components/CreateRent'
 import EditRent from '../components/EditRent'
+import styles from './calculator.module.css'
 
 const Calculator = () => {
   const [roomsWereAdded, setRoomsWereAdded] = useState(false)
@@ -24,7 +25,7 @@ const Calculator = () => {
 
   return (
     <div className='App'>
-      <div className='room-rent-configurator'>
+      <div className={styles.container}>
         {rent === 0 && <CreateRent />}
         {rent > 0 && !roomsWereAdded && (
           <div data-testid='rooms-form-container'>
@@ -78,7 +79,7 @@ const Calculator = () => {
         {showEditRent && <EditRent />}
         {attributes.length > 0 && <Matrix rooms={rooms} />}
         {attributes.length > 0 && !showEditAttributes && !showEditRent && (
-          <div>
+          <div className={styles['edit-buttons']}>
             <button
               data-testid='generate-edit-attributes-dialogue'
               onClick={() => setShowEditAttributes(true)}

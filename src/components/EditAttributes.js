@@ -14,7 +14,7 @@ const EditAttributes = () => {
       if (key in attributes) {
         newAttributes.push({
           name: `${value.name}`,
-          percentageOfRent: `${value.value}`,
+          percentageOfRent: Number(`${value.value}`),
         })
       }
     })
