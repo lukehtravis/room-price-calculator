@@ -1,15 +1,13 @@
 import { useContext } from 'react'
-import './matrix.css'
+import styles from './matrix.module.css'
 import { RoomsContext } from '../context/RoomsContext'
 import calculateAttributePricePerRoom from '../utils/calculateAttributePricePerRoom'
 import { roundNumber } from '../utils/roundNumber'
 
 const Matrix = () => {
   const { rooms, attributes, rent } = useContext(RoomsContext)
-  const width = 800
-  const attributeNames = attributes.map((attribute) => attribute.name)
-  const cellWidth = width / (attributeNames.length + 2)
   const attributeUnitTotals = {}
+  const attributeColumnTotals = {}
   rooms.forEach((room) => {
     room.roomAttributes.forEach((attribute) => {
       if (attribute.name in attributeUnitTotals) {
@@ -19,51 +17,69 @@ const Matrix = () => {
       }
     })
   })
-  const attributeColumnTotals = {}
 
   return (
     <div className='container' data-testid='matrix-component'>
-      <div className='table' style={{ width: width }}>
-        <div className='table-header'>
-          <div className='table-header-row'>
+      <div className={styles.table}>
+        <div className={styles['table-header']}>
+          <div
+            style={{
+              gridTemplateColumns: `repeat(auto-fill, minmax(calc(100% / ${
+                attributes.length + 2
+              }), 1fr))`,
+            }}
+            className={styles['table-header-row']}
+          >
             <div
-              className='table-header-cell'
-              style={{ width: cellWidth }}
+              className={styles['table-header-cell']}
               data-testid='rooms-header'
             >
               Rooms
             </div>
-            {attributeNames.map((attributeName, i) => (
+            {attributes.map((attribute, i) => (
               <div
                 key={i}
-                style={{ width: cellWidth }}
-                className='table-header-cell'
-                data-testid={`attribute-header-${attributeName}`}
+                className={styles['table-header-cell']}
+                data-testid={`attribute-header-${attribute.name}`}
               >
-                {attributeName}
+                <span
+                  className='table-header-cell-name'
+                  data-testid={`column-name`}
+                >
+                  {attribute.name}
+                </span>
+                <span
+                  className={styles['column-percentage']}
+                  data-testid={`column-percentage`}
+                >
+                  {attribute.percentageOfRent}%
+                </span>
               </div>
             ))}
             <div
-              className='table-header-cell'
-              style={{ width: cellWidth }}
+              className={styles['table-header-cell']}
               data-testid='total-cost-header'
             >
               Total Cost
             </div>
           </div>
         </div>
-        <div className='table-body'>
+        <div className={styles['table-body']}>
           {rooms.map((room, i) => {
             let totalRoomCost = 0
             return (
               <div
                 key={i}
-                className='table-row'
+                style={{
+                  gridTemplateColumns: `repeat(auto-fill, minmax(calc(100% / ${
+                    attributes.length + 2
+                  }), 1fr))`,
+                }}
+                className={`${styles['table-row']}`}
                 data-testid={`room-row-${room.name}`}
               >
                 <div
-                  style={{ width: cellWidth }}
-                  className='table-cell'
+                  className={styles['table-cell']}
                   data-testid={`room-name-${room.name}`}
                 >
                   {room.name}
@@ -90,57 +106,76 @@ const Matrix = () => {
                   return (
                     <div
                       key={j}
-                      className='table-cell'
-                      style={{ width: cellWidth }}
+                      className={styles['table-cell']}
                       data-testid={`room-${room.name}-attribute-${attribute.name}`}
                     >
                       ${roundNumber(attributePriceForThisRoom, 2)}
                     </div>
                   )
                 })}
-                <div
-                  style={{ width: cellWidth }}
-                  className='table-cell'
-                  data-testid={`total-cost-room-${room.name}`}
-                >
-                  ${roundNumber(totalRoomCost, 2)}
+                <div className={styles['table-cell']}>
+                  <span
+                    className='total-cost-room'
+                    data-testid={`total-cost-room-${room.name}`}
+                  >
+                    ${roundNumber(totalRoomCost, 2)}
+                  </span>
+                  <span
+                    className={styles['total-percentage-room']}
+                    data-testid={`total-percentage-room-${room.name}`}
+                  >
+                    {roundNumber((totalRoomCost / rent) * 100, 2)}%
+                  </span>
                 </div>
               </div>
             )
           })}
-          <div className='table-row'>
-            <div
-              style={{ width: cellWidth }}
-              className='table-cell'
-              data-testid='totals-header'
-            >
+          <div
+            style={{
+              gridTemplateColumns: `repeat(auto-fill, minmax(calc(100% / ${
+                attributes.length + 2
+              }), 1fr))`,
+            }}
+            className={`${styles['table-row']}`}
+          >
+            <div className={styles['table-cell']} data-testid='totals-header'>
               Totals
             </div>
             {Object.values(attributeColumnTotals).map(
               (attributeValue, index) => (
                 <div
                   key={index}
-                  className='table-cell'
-                  style={{ width: cellWidth }}
+                  className={styles['table-cell']}
                   data-testid={`attribute-total-${index}`}
                 >
                   ${roundNumber(attributeValue, 2)}
                 </div>
               )
             )}
-            <div
-              className='table-cell'
-              style={{ width: cellWidth }}
-              data-testid='grand-total'
-            >
-              $
-              {roundNumber(
-                Object.values(attributeColumnTotals).reduce(
-                  (acc, curr) => acc + curr,
-                  0
-                ),
-                2
-              )}
+            <div className={`${styles['table-cell']} grand-total-cell`}>
+              <span className='grand-total-sum' data-testid='grand-total'>
+                $
+                {roundNumber(
+                  Object.values(attributeColumnTotals).reduce(
+                    (acc, curr) => acc + curr,
+                    0
+                  ),
+                  2
+                )}
+              </span>
+              <span
+                className={styles['grand-total-percent']}
+                data-testid='grand-total-percent'
+              >
+                {roundNumber(
+                  Object.values(attributeColumnTotals).reduce(
+                    (acc, curr) => acc + curr,
+                    0
+                  ) / rent,
+                  2
+                ) * 100}
+                %
+              </span>
             </div>
           </div>
         </div>

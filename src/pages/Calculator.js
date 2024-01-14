@@ -2,45 +2,31 @@ import { useState, useContext } from 'react'
 import CreateAttributes from '../components/CreateAttributes'
 import Matrix from '../components/Matrix'
 import { RoomsContext } from '../context/RoomsContext'
-import { initialRentSubmit } from '../utils/handlers/rentHandlers'
 import { createPreRooms, makeRooms } from '../utils/handlers/roomCreation'
 import { sumAttributePercentage } from '../utils/handlers/attributeHandlers'
 import EditAttributes from '../components/EditAttributes'
+import CreateRent from '../components/CreateRent'
+import EditRent from '../components/EditRent'
+import styles from './calculator.module.css'
 
 const Calculator = () => {
   const [roomsWereAdded, setRoomsWereAdded] = useState(false)
   const {
     rent,
-    setRent,
     attributes,
     rooms,
     setRooms,
     showEditAttributes,
     setShowEditAttributes,
+    showEditRent,
+    setShowEditRent,
   } = useContext(RoomsContext)
   const attributePercentage = sumAttributePercentage(attributes)
 
   return (
     <div className='App'>
-      <div className='room-rent-configurator'>
-        {rent === 0 && (
-          <form
-            onSubmit={(e) => initialRentSubmit(e, setRent)}
-            data-testid='rent-form'
-          >
-            <label htmlFor='totalRent'>Total Rent</label>
-            <input
-              type='number'
-              name='totalRent'
-              id='totalRent'
-              min='0'
-              data-testid='total-rent-input'
-            />
-            <button type='submit' data-testid='set-rent-button'>
-              Set Rent Total
-            </button>
-          </form>
-        )}
+      <div className={styles.container}>
+        {rent === 0 && <CreateRent />}
         {rent > 0 && !roomsWereAdded && (
           <div data-testid='rooms-form-container'>
             <form
@@ -90,15 +76,25 @@ const Calculator = () => {
             </div>
           )}
         {showEditAttributes && <EditAttributes />}
+        {showEditRent && <EditRent />}
         {attributes.length > 0 && <Matrix rooms={rooms} />}
-        {attributes.length > 0 && (
-          <button
-            data-testid='generate-edit-attributes-dialogue'
-            onClick={() => setShowEditAttributes(true)}
-            type='button'
-          >
-            Edit Attributes
-          </button>
+        {attributes.length > 0 && !showEditAttributes && !showEditRent && (
+          <div className={styles['edit-buttons']}>
+            <button
+              data-testid='generate-edit-attributes-dialogue'
+              onClick={() => setShowEditAttributes(true)}
+              type='button'
+            >
+              Edit Attributes
+            </button>
+            <button
+              data-testid='generate-edit-rent-dialogue'
+              onClick={() => setShowEditRent(true)}
+              type='button'
+            >
+              Edit Rent
+            </button>
+          </div>
         )}
       </div>
     </div>

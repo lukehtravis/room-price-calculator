@@ -14,12 +14,11 @@ const EditAttributes = () => {
       if (key in attributes) {
         newAttributes.push({
           name: `${value.name}`,
-          percentageOfRent: `${value.value}`,
+          percentageOfRent: Number(`${value.value}`),
         })
       }
     })
 
-    console.log(sumAttributePercentage(newAttributes))
     if (sumAttributePercentage(newAttributes) > 100) {
       alert(
         `Unfortunately your attribute percentage is ${sumAttributePercentage(

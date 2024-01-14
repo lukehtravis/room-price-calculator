@@ -1,0 +1,46 @@
+.table {
+    margin: 0 auto;
+}
+
+/* .table-header {
+
+} */
+
+.table-header-row {
+    display: grid;
+}
+
+.table-header-cell {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+} 
+
+/* .table-body {
+   
+}  */
+
+.table-row {
+    display: grid;
+}
+
+.table-cell {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+} 
+
+.total-percentage-room {
+    padding-left: 10px;
+    color: teal;
+}
+
+.column-percentage {
+    color: blueviolet;
+    padding-left: 10px
+}
+
+.grand-total-percent {
+    color: red;
+    padding-left: 10px
+}
