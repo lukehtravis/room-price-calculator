@@ -1,10 +1,10 @@
 import { useContext } from 'react'
-import { RoomsContext } from '../../context/RoomsContext'
-import { initialRentSubmit } from '../../utils/handlers/rentHandlers'
-import NumberInput from '../atoms/NumberInput'
-import Button from '../atoms/Button'
+import { RoomsContext } from '../../../context/RoomsContext'
+import { initialRentSubmit } from '../../../utils/handlers/rentHandlers'
+import NumberInput from '../../atoms/NumberInput'
+import Button from '../../atoms/Button'
 import styles from './create-rent.module.css'
-import InputWrapper from '../atoms/InputWrapper'
+import InputWrapper from '../../atoms/InputWrapper'
 
 const CreateRent = () => {
   const { setRent } = useContext(RoomsContext)

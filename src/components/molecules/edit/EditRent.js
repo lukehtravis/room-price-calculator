@@ -1,7 +1,7 @@
 import { useContext } from 'react'
-import { RoomsContext } from '../context/RoomsContext'
-import NumberInput from './atoms/NumberInput'
-import Button from './atoms/Button'
+import { RoomsContext } from '../../../context/RoomsContext'
+import NumberInput from '../../atoms/NumberInput'
+import Button from '../../atoms/Button'
 
 const EditRent = () => {
   const { rent, setRent, setShowEditRent } = useContext(RoomsContext)

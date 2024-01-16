@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import { useContext } from 'react'
-import { RoomsContext } from '../../context/RoomsContext'
-import { createPreRooms, makeRooms } from '../../utils/handlers/roomCreation'
-import InputWrapper from '../atoms/InputWrapper'
-import NumberInput from '../atoms/NumberInput'
-import TextInput from '../atoms/TextInput'
-import Button from '../atoms/Button'
+import { RoomsContext } from '../../../context/RoomsContext'
+import { createPreRooms, makeRooms } from '../../../utils/handlers/roomCreation'
+import InputWrapper from '../../atoms/InputWrapper'
+import NumberInput from '../../atoms/NumberInput'
+import TextInput from '../../atoms/TextInput'
+import Button from '../../atoms/Button'
 import styles from './create-rooms.module.css'
 
 const CreateRooms = ({ setRoomsWereAdded }) => {

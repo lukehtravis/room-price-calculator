@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import styles from './matrix.module.css'
-import { RoomsContext } from '../context/RoomsContext'
-import calculateAttributePricePerRoom from '../utils/calculateAttributePricePerRoom'
-import { roundNumber } from '../utils/roundNumber'
+import { RoomsContext } from '../../context/RoomsContext'
+import calculateAttributePricePerRoom from '../../utils/calculateAttributePricePerRoom'
+import { roundNumber } from '../../utils/roundNumber'
 
 const Matrix = () => {
   const { rooms, attributes, rent } = useContext(RoomsContext)

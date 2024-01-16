@@ -1,9 +1,9 @@
 import { useState, useContext } from 'react'
-import { RoomsContext } from '../../context/RoomsContext'
-import { defineAttribute } from '../../utils/handlers/attributeHandlers'
-import TextInput from '../atoms/TextInput'
-import NumberInput from '../atoms/NumberInput'
-import Button from '../atoms/Button'
+import { RoomsContext } from '../../../context/RoomsContext'
+import { defineAttribute } from '../../../utils/handlers/attributeHandlers'
+import TextInput from '../../atoms/TextInput'
+import NumberInput from '../../atoms/NumberInput'
+import Button from '../../atoms/Button'
 import styles from './create-attributes.module.css'
 
 const CreateAttributes = () => {
