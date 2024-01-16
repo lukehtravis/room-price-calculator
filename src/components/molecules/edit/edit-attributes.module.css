@@ -1,0 +1,8 @@
+.modify-attributes-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: var(--double-margin);
+    margin-top: var(--double-margin);
+    margin-bottom: var(--double-margin);
+}
+

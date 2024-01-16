@@ -1,17 +1,13 @@
 import PropTypes from 'prop-types'
-
+import NumberInput from '../components/atoms/NumberInput'
 const Attribute = ({ attribute }) => {
   return (
     <div className='attribute'>
-      <label htmlFor={attribute.name}>{attribute.name}</label>
-      <input
-        type='number'
-        max='100'
-        min='0'
-        name={attribute.name}
-        id={attribute.name}
+      <NumberInput
+        labelText={attribute.name}
+        nameid={attribute.name}
         defaultValue={attribute.percentageOfRent}
-        data-testid={`edit-attribute-input-${attribute.name}`}
+        testid={`edit-attribute-input-${attribute.name}`}
       />
     </div>
   )

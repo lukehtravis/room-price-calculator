@@ -6,14 +6,12 @@ import { RoomsContextProvider } from './context/RoomsContext'
 function App() {
   return (
     <RoomsContextProvider>
-      <div className='App'>
-        <Router>
-          <Routes>
-            <Route exact path='/' element={<About />} />
-            <Route exact path='/calculator' element={<Calculator />} />
-          </Routes>
-        </Router>
-      </div>
+      <Router>
+        <Routes>
+          <Route exact path='/' element={<About />} />
+          <Route exact path='/calculator' element={<Calculator />} />
+        </Routes>
+      </Router>
     </RoomsContextProvider>
   )
 }

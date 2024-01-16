@@ -19,7 +19,7 @@ const Matrix = () => {
   })
 
   return (
-    <div className='container' data-testid='matrix-component'>
+    <div className={styles.container} data-testid='matrix-component'>
       <div className={styles.table}>
         <div className={styles['table-header']}>
           <div

@@ -1,21 +1,20 @@
 import { useState, useContext } from 'react'
-import CreateAttributes from '../components/CreateAttributes'
+import CreateAttributes from '../components/molecules/CreateAttributes'
 import Matrix from '../components/Matrix'
 import { RoomsContext } from '../context/RoomsContext'
-import { createPreRooms, makeRooms } from '../utils/handlers/roomCreation'
+import CreateRooms from '../components/molecules/CreateRooms'
 import { sumAttributePercentage } from '../utils/handlers/attributeHandlers'
-import EditAttributes from '../components/EditAttributes'
-import CreateRent from '../components/CreateRent'
+import EditAttributes from '../components/molecules/edit/EditAttributes'
+import CreateRent from '../components/molecules/CreateRent'
 import EditRent from '../components/EditRent'
 import styles from './calculator.module.css'
+import Button from '../components/atoms/Button'
 
 const Calculator = () => {
   const [roomsWereAdded, setRoomsWereAdded] = useState(false)
   const {
     rent,
     attributes,
-    rooms,
-    setRooms,
     showEditAttributes,
     setShowEditAttributes,
     showEditRent,
@@ -24,76 +23,35 @@ const Calculator = () => {
   const attributePercentage = sumAttributePercentage(attributes)
 
   return (
-    <div className='App'>
+    <div className={styles.wrapper}>
       <div className={styles.container}>
         {rent === 0 && <CreateRent />}
         {rent > 0 && !roomsWereAdded && (
-          <div data-testid='rooms-form-container'>
-            <form
-              onSubmit={(e) => createPreRooms(e, setRooms)}
-              style={{ display: `${rooms.length > 0 ? 'none' : 'block'}` }}
-              data-testid='rooms-form'
-            >
-              <label htmlFor='numberOfRooms'>Number Of Rooms</label>
-              <input
-                type='number'
-                name='numberOfRooms'
-                id='numberOfRooms'
-                min='1'
-                data-testid='number-of-rooms-input'
-              />
-              <button type='submit' data-testid='submit-rooms-button'>
-                Submit Number Of Rooms
-              </button>
-            </form>
-            {rooms.length > 0 && (
-              <form
-                onSubmit={(e) => makeRooms(e, setRooms, setRoomsWereAdded)}
-                data-testid='create-rooms-form'
-              >
-                {rooms.map((x, i) => (
-                  <div key={x.name} data-testid={`room-entry-${i}`}>
-                    <label htmlFor={`room-${i}`}>{`Room ${i + 1} Name`}</label>
-                    <input
-                      type='text'
-                      name={`room-${i}`}
-                      id={`room-${i}`}
-                      data-testid={`room-name-input-${i}`}
-                    />
-                  </div>
-                ))}
-                <button type='submit' data-testid='create-rooms-button'>
-                  Create Rooms
-                </button>
-              </form>
-            )}
-          </div>
+          <CreateRooms setRoomsWereAdded={setRoomsWereAdded} />
         )}
         {roomsWereAdded &&
-          (attributes.length < 1 || attributePercentage < 100) && (
-            <div className='attribute-section' data-testid='attribute-section'>
-              <CreateAttributes />
-            </div>
-          )}
+          (attributes.length < 1 || attributePercentage < 100) &&
+          !showEditAttributes &&
+          !showEditRent && <CreateAttributes />}
         {showEditAttributes && <EditAttributes />}
         {showEditRent && <EditRent />}
-        {attributes.length > 0 && <Matrix rooms={rooms} />}
+        {attributes.length > 0 && <Matrix />}
         {attributes.length > 0 && !showEditAttributes && !showEditRent && (
           <div className={styles['edit-buttons']}>
-            <button
-              data-testid='generate-edit-attributes-dialogue'
-              onClick={() => setShowEditAttributes(true)}
+            <Button
               type='button'
+              testid='generate-edit-attributes-dialogue'
+              clickHandler={() => setShowEditAttributes(true)}
             >
               Edit Attributes
-            </button>
-            <button
-              data-testid='generate-edit-rent-dialogue'
-              onClick={() => setShowEditRent(true)}
+            </Button>
+            <Button
               type='button'
+              data-testid='generate-edit-rent-dialogue'
+              clickHandler={() => setShowEditRent(true)}
             >
               Edit Rent
-            </button>
+            </Button>
           </div>
         )}
       </div>

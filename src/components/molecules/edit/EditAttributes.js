@@ -1,7 +1,9 @@
 import { useContext } from 'react'
-import { RoomsContext } from '../context/RoomsContext'
-import Attribute from './Attribute'
-import { sumAttributePercentage } from '../utils/handlers/attributeHandlers'
+import { RoomsContext } from '../../../context/RoomsContext'
+import Attribute from '../../Attribute'
+import { sumAttributePercentage } from '../../../utils/handlers/attributeHandlers'
+import Button from '../../atoms/Button'
+import styles from './edit-attributes.module.css'
 
 const EditAttributes = () => {
   const { attributes, setAttributes, setShowEditAttributes } =
@@ -34,17 +36,13 @@ const EditAttributes = () => {
 
   return (
     <div className='edit-attributes'>
-      <form
-        data-testid='submit-attribute-changes'
-        className='modify-attributes-form'
-        onSubmit={handleSubmit}
-      >
-        {attributes.map((attribute) => {
-          return <Attribute key={attribute.name} attribute={attribute} />
-        })}
-        <button data-testid='edit-attributes-button' type='submit'>
-          Modify Attributes
-        </button>
+      <form data-testid='submit-attribute-changes' onSubmit={handleSubmit}>
+        <div className={styles['modify-attributes-form']}>
+          {attributes.map((attribute) => {
+            return <Attribute key={attribute.name} attribute={attribute} />
+          })}
+        </div>
+        <Button testid='edit-attributes-button'>Modify Attributes</Button>
       </form>
     </div>
   )

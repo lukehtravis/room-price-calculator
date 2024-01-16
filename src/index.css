@@ -1,3 +1,24 @@
+:root {
+  --background-color: #212121;
+  --light-gray-text: #CCCCCC;
+  --neon-red: #fe4567;
+  --neon-green: #00A97F;
+  --neon-yellow: #FFD700;
+  --neon-purple: #800080;
+  --neon-teal: #008080;
+  --single-margin: 15px;
+  --double-margin: 30px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--background-color);
+  color: var(--light-gray-text);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

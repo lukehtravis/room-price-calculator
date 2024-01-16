@@ -1,0 +1,30 @@
+.rooms-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.create-rooms-form {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-rooms-form-2 {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.name-rooms {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.create-rooms-button {
+    margin-top: var(--double-margin);
+}
