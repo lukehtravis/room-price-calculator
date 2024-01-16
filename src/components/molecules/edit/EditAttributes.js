@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { RoomsContext } from '../../../context/RoomsContext'
-import Attribute from '../../Attribute'
+import Attribute from '../Attribute'
 import { sumAttributePercentage } from '../../../utils/handlers/attributeHandlers'
 import Button from '../../atoms/Button'
 import styles from './edit-attributes.module.css'

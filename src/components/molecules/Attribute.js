@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import NumberInput from '../components/atoms/NumberInput'
+import NumberInput from '../atoms/NumberInput'
 const Attribute = ({ attribute }) => {
   return (
     <div className='attribute'>
