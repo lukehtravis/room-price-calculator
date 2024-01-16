@@ -1,3 +1,9 @@
+.container {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
 .table {
     margin: 0 auto;
 }
@@ -8,12 +14,15 @@
 
 .table-header-row {
     display: grid;
+    border-bottom: 1px solid var(--neon-red);
 }
 
 .table-header-cell {
     display: flex;
     justify-content: center; 
     align-items: center; 
+    padding-top: var(--double-margin);
+    padding-bottom: var(--double-margin);
 } 
 
 /* .table-body {
@@ -22,25 +31,28 @@
 
 .table-row {
     display: grid;
+    border-bottom: 1px solid var(--neon-red);
 }
 
 .table-cell {
     display: flex;
     justify-content: center; 
     align-items: center; 
+    padding-top: var(--double-margin);
+    padding-bottom: var(--double-margin);
 } 
 
 .total-percentage-room {
     padding-left: 10px;
-    color: teal;
+    color: var(--neon-yellow);
 }
 
 .column-percentage {
-    color: blueviolet;
+    color: var(--neon-yellow);
     padding-left: 10px
 }
 
 .grand-total-percent {
-    color: red;
+    color: var(--neon-green);
     padding-left: 10px
 }

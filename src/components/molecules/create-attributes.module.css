@@ -1,0 +1,32 @@
+.attributes-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.create-attributes-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.attribute-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: end;
+    div {
+        margin-right: var(--double-margin);
+    }
+}
+
+.attribute-button {
+    width: 250px;
+    margin: 0 auto
+}
+
+.room-configurator {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: var(--double-margin);
+    margin-bottom: var(--double-margin);
+}
