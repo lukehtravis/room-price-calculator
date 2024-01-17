@@ -9,7 +9,7 @@ import styles from './create-attributes.module.css'
 const CreateAttributes = () => {
   const [attribute, setAttribute] = useState(null)
   const [inputsVisible, setInputsVisible] = useState(false)
-  const { rooms, setRooms, attributes, setAttributes } =
+  const { rooms, setRooms, attributes, setAttributes, setShowCreateAttribute } =
     useContext(RoomsContext)
 
   const applyAttributeToRooms = (event) => {
@@ -29,6 +29,7 @@ const CreateAttributes = () => {
     setAttributes([...attributes, attribute])
     setAttribute(null)
     setInputsVisible(false)
+    setShowCreateAttribute(false)
   }
 
   return (

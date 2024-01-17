@@ -1,0 +1,14 @@
+.edit-buttons {
+    max-width: 1000px;
+    margin: 0 auto var(--double-margin);
+    display: flex;
+    justify-content: space-around;
+
+    button {
+        margin-right: var(--double-margin);
+    }
+
+    button:last-of-type {
+        margin-right: 0px;
+    }
+}

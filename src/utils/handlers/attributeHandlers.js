@@ -1,4 +1,5 @@
 const sumAttributePercentage = (attributes) => {
+  if (attributes.length < 1) return 0
   return attributes.reduce(
     (accumulator, currentValue) =>
       Number(accumulator) + Number(currentValue.percentageOfRent),
