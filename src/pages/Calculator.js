@@ -31,20 +31,17 @@ const Calculator = () => {
           <CreateRooms setRoomsWereAdded={setRoomsWereAdded} />
         )}
         {showCreateAttribute && (
-          <Modal
-            handleClose={() => setShowCreateAttribute(false)}
-            isOpen={true}
-          >
+          <Modal handleClose={setShowCreateAttribute} isOpen={true}>
             <CreateAttributes />
           </Modal>
         )}
         {showEditAttributes && (
-          <Modal handleClose={() => setShowEditAttributes(false)} isOpen={true}>
+          <Modal handleClose={setShowEditAttributes} isOpen={true}>
             <EditAttributes />
           </Modal>
         )}
         {showEditRent && (
-          <Modal handleClose={() => setShowEditRent(false)} isOpen={true}>
+          <Modal handleClose={setShowEditRent} isOpen={true}>
             <EditRent />
           </Modal>
         )}
