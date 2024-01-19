@@ -19,11 +19,6 @@
     }
 }
 
-.attribute-button {
-    width: 250px;
-    margin: 0 auto
-}
-
 .room-configurator {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

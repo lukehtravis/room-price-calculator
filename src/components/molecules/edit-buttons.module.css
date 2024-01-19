@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-around;
 
-    button {
+    div {
         margin-right: var(--double-margin);
     }
 

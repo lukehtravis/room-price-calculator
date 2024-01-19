@@ -8,14 +8,16 @@ const Button = ({
   classes = '',
 }) => {
   return (
-    <button
-      data-testid={testid}
-      onClick={clickHandler ? (e) => clickHandler(e) : null}
-      className={`${styles.button} ${classes}`}
-      type={type}
-    >
-      {children}
-    </button>
+    <div>
+      <button
+        data-testid={testid}
+        onClick={clickHandler ? (e) => clickHandler(e) : null}
+        className={`${styles.button} ${classes}`}
+        type={type}
+      >
+        {children}
+      </button>
+    </div>
   )
 }
 

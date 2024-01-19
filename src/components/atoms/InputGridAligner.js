@@ -3,14 +3,16 @@ import styles from './input-grid-aligner.module.css'
 
 const InputGridAligner = ({ numberOfInputs, children }) => {
   return (
-    <div
-      className={
-        numberOfInputs <= 2
-          ? styles['input-grid-horizontal']
-          : styles['input-grid-vertical']
-      }
-    >
-      {children}
+    <div>
+      <div
+        className={
+          numberOfInputs <= 2
+            ? styles['input-grid-horizontal']
+            : styles['input-grid-vertical']
+        }
+      >
+        {children}
+      </div>
     </div>
   )
 }

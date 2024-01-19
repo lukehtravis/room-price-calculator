@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import { RoomsContext } from '../../../context/RoomsContext'
 import { defineAttribute } from '../../../utils/handlers/attributeHandlers'
 import TextInput from '../../atoms/TextInput'
+import InputGridAligner from '../../atoms/InputGridAligner'
 import NumberInput from '../../atoms/NumberInput'
 import Button from '../../atoms/Button'
 import styles from './create-attributes.module.css'
@@ -76,7 +77,8 @@ const CreateAttributes = () => {
           data-testid='room-configuration-form'
           className={styles['create-attributes-form']}
         >
-          <div className={styles['room-configurator']}>
+          {/* <div className={styles['room-configurator']}> */}
+          <InputGridAligner numberOfInputs={rooms.length}>
             {rooms.map((room) => (
               <TextInput
                 key={room.name}
@@ -85,10 +87,11 @@ const CreateAttributes = () => {
                 testid={`room-input-${room.name}`}
               />
             ))}
-          </div>
-          <Button testid='submit-attribute-details-button'>
-            Apply Attribute To Rooms
-          </Button>
+
+            <Button testid='submit-attribute-details-button'>
+              Apply Attribute To Rooms
+            </Button>
+          </InputGridAligner>
         </form>
       )}
     </div>

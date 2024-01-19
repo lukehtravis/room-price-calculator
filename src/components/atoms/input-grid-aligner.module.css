@@ -1,12 +1,26 @@
 .input-grid-horizontal {
+    max-width: 700px;
     display: flex;
     justify-content: space-around;
-    align-items: baseline;
+    align-items: end;
+    input {
+        margin-right: var(--double-margin);
+    }
 }
 
 .input-grid-vertical {
+    max-width: 700px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
+    input {
+        margin-bottom: var(--double-margin);
+    }
+    div:last-of-type {
+        flex-basis: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
 }
