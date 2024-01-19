@@ -7,6 +7,7 @@ const RoomsContextProvider = ({ children }) => {
   const [rooms, setRooms] = useState([])
   const [attributes, setAttributes] = useState([])
   const [rent, setRent] = useState(0)
+  const [showCreateAttribute, setShowCreateAttribute] = useState(false)
   const [showEditAttributes, setShowEditAttributes] = useState(false)
   const [showEditRent, setShowEditRent] = useState(false)
   return (
@@ -18,6 +19,8 @@ const RoomsContextProvider = ({ children }) => {
         setAttributes,
         rent,
         setRent,
+        showCreateAttribute,
+        setShowCreateAttribute,
         showEditAttributes,
         setShowEditAttributes,
         showEditRent,

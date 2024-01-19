@@ -6,6 +6,7 @@ import InputWrapper from '../../atoms/InputWrapper'
 import NumberInput from '../../atoms/NumberInput'
 import TextInput from '../../atoms/TextInput'
 import Button from '../../atoms/Button'
+import InputGridAligner from '../../atoms/InputGridAligner'
 import styles from './create-rooms.module.css'
 
 const CreateRooms = ({ setRoomsWereAdded }) => {
@@ -28,6 +29,7 @@ const CreateRooms = ({ setRoomsWereAdded }) => {
             testid='number-of-rooms-input'
             labelText='Number Of Rooms'
           />
+
           <Button testid='submit-rooms-button'>Add Rooms</Button>
         </InputWrapper>
       </form>
@@ -37,7 +39,7 @@ const CreateRooms = ({ setRoomsWereAdded }) => {
           data-testid='create-rooms-form-2'
           className={styles['create-rooms-form-2']}
         >
-          <div className={styles['name-rooms']}>
+          <InputGridAligner numberOfInputs={rooms.length}>
             {rooms.map((x, i) => (
               <TextInput
                 key={x.name}
@@ -46,14 +48,14 @@ const CreateRooms = ({ setRoomsWereAdded }) => {
                 labelText={`Room ${i + 1} Name`}
               />
             ))}
-          </div>
 
-          <Button
-            classes={styles['create-rooms-button']}
-            testid='create-rooms-button'
-          >
-            Create Rooms
-          </Button>
+            <Button
+              classes={styles['create-rooms-button']}
+              testid='create-rooms-button'
+            >
+              Create Rooms
+            </Button>
+          </InputGridAligner>
         </form>
       )}
     </div>
