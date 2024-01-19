@@ -26,7 +26,7 @@ const EditButtons = () => {
       {attributePercentage < 100 && (
         <Button
           type='button'
-          data-testid='generate-create-attributes,dialogue'
+          testid='generate-create-attributes-dialogue'
           clickHandler={() => setShowCreateAttribute(true)}
         >
           Create Attributes

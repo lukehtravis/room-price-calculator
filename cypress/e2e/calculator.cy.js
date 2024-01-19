@@ -19,6 +19,7 @@ describe("Create Rooms and Attributes Tests", () => {
   it("prevents user from adding percentages more than 100", () => {
     createRentAndRooms(1000);
     createAttribute("square feet", 90);
+    cy.get('[data-testid="generate-create-attributes-dialogue"]').click();
     cy.get('[data-testid="attribute-name-input"]').type(`privacy`);
     cy.get('[data-testid="attribute-percentage-input"]').type(`20`);
     cy.get('[data-testid="create-attribute-button"]').click();
@@ -74,6 +75,7 @@ const createRentAndRooms = (rentAmount) => {
 };
 
 const createAttribute = (attributeName, attributePercentage) => {
+  cy.get('[data-testid="generate-create-attributes-dialogue"]').click();
   cy.get('[data-testid="attribute-name-input"]').type(`${attributeName}`);
   cy.get('[data-testid="attribute-percentage-input"]').type(
     `${attributePercentage}`

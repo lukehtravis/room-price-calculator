@@ -77,7 +77,6 @@ const CreateAttributes = () => {
           data-testid='room-configuration-form'
           className={styles['create-attributes-form']}
         >
-          {/* <div className={styles['room-configurator']}> */}
           <InputGridAligner numberOfInputs={rooms.length}>
             {rooms.map((room) => (
               <TextInput
