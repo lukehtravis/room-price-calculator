@@ -4,10 +4,12 @@ import styles from './edit-rooms.module.css'
 import RadioInput from '../../../atoms/RadioInput/RadioInput'
 import { RoomsContext } from '../../../../context/RoomsContext'
 import NumberInput from '../../../atoms/NumberInput'
+import InputGridAligner from '../../../atoms/InputGridAligner'
 import { getStringAfterLastDash } from '../../../../utils/getStringAfterLastDash'
+import Button from '../../../atoms/Button'
 
 const EditRooms = () => {
-  const { rooms } = useContext(RoomsContext)
+  const { rooms, setRooms, setShowEditRooms } = useContext(RoomsContext)
   const [editedRooms, setEditedRooms] = useState([...rooms])
   const [activeRadio, setActiveRadio] = useState(rooms[0].name)
   const roomNames = editedRooms.map((room) => {
@@ -26,7 +28,7 @@ const EditRooms = () => {
               if (attr.name === getStringAfterLastDash(e.target.name)) {
                 return {
                   ...attr,
-                  units: e.target.value,
+                  units: Number(e.target.value),
                 }
               }
               return attr
@@ -38,16 +40,12 @@ const EditRooms = () => {
     )
   }
 
-  //   const handleSubmit = () => {}
-  //   let currentRadioObject = {}
-  //   for (const room of editedRooms) {
-  //     if (room.name === activeRadio) {
-  //       currentRadioObject = room
-  //     }
-  //   }
-  //   const lol = editedRooms.find((room) => room.name === activeRadio)[
-  //     'roomAttributes'
-  //   ]
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setRooms([...editedRooms])
+    setShowEditRooms(false)
+  }
+
   return (
     <div className={styles.container}>
       <p>Choose a room to edit</p>
@@ -57,21 +55,30 @@ const EditRooms = () => {
         onChange={setActiveRadio}
         options={roomNames}
       />
-      {editedRooms
-        .find((room) => room.name === activeRadio)
-        ['roomAttributes'].map((attribute, index) => {
-          return (
-            <NumberInput
-              key={index}
-              controlled={true}
-              labelText={attribute.name}
-              max='100000000'
-              nameid={`room-edit-${activeRadio}-${attribute.name}`}
-              value={attribute.units}
-              onChange={updateEditedRooms}
-            />
-          )
-        })}
+      <InputGridAligner numberOfInputs={rooms[0].roomAttributes.length}>
+        {editedRooms
+          .find((room) => room.name === activeRadio)
+          ['roomAttributes'].map((attribute, index) => {
+            return (
+              <NumberInput
+                key={index}
+                controlled={true}
+                labelText={attribute.name}
+                max='100000000'
+                nameid={`room-edit-${activeRadio}-${attribute.name}`}
+                value={attribute.units}
+                onChange={updateEditedRooms}
+              />
+            )
+          })}
+        <Button
+          testid='modify-rooms-button'
+          clickHandler={handleSubmit}
+          type='button'
+        >
+          Modify Rooms
+        </Button>
+      </InputGridAligner>
     </div>
   )
 }

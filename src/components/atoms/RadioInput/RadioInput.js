@@ -12,11 +12,11 @@ const RadioInput = ({
   return (
     <div className={`${styles['radio-group']} ${classes}`} role='radiogroup'>
       {options.map((option) => (
-        <label className={styles.label} key={option.value}>
+        <label className={styles.label} key={option.label}>
           <input
             type='radio'
-            name={nameid}
-            data-testid={testid}
+            name={`${nameid}-${option.label}`}
+            data-testid={`${testid}-${option.label}`}
             value={option.value}
             className={styles['radio-input']}
             checked={option.value === selectedValue}

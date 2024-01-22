@@ -79,7 +79,9 @@ const CreateAttributes = () => {
         >
           <InputGridAligner numberOfInputs={rooms.length}>
             {rooms.map((room) => (
-              <TextInput
+              <NumberInput
+                min='0'
+                max='10000000'
                 key={room.name}
                 nameid={room.name}
                 labelText={room.name}
