@@ -2,8 +2,8 @@ import { createPortal } from 'react-dom'
 import { useState, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 
-// We are directly mutating the DOM and appending an empty div to the body in instances where no element is found.
-//
+// In the portal, we are directly mutating the DOM and appending an empty div to the end of the body.
+// This is done for our modals to ensure that they open in an independant context
 function Portal({ children, wrapperId = 'react-portal-wrapper' }) {
   const [wrapperElement, setWrapperElement] = useState(null)
 
@@ -20,6 +20,7 @@ function Portal({ children, wrapperId = 'react-portal-wrapper' }) {
       element = createWrapperAndAppendToBody(wrapperId)
     }
     setWrapperElement(element)
+
     return () => {
       // removes the dynamically created DOM element when the Portal component is unmounted or when its wrapperId prop changes.
       if (systemCreated && element.parentNode) {

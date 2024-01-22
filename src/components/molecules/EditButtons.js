@@ -44,7 +44,7 @@ const EditButtons = () => {
       {rooms.length > 0 && (
         <Button
           type='button'
-          data-testid='generate-edit-rooms-dialogue'
+          testid='generate-edit-rooms-dialogue'
           clickHandler={() => setShowEditRooms(true)}
         >
           Edit Rooms

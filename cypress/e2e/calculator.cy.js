@@ -61,6 +61,18 @@ describe("Edit Rooms and Attributes Tests", () => {
       `Unfortunately your attribute percentage is 110, which is over 100. Try and  modify things so that they add up to less and try again.`
     );
   });
+
+  it("Edits rooms correctly", () => {
+    createRentAndRooms(1000);
+    createAttribute("squarefeet", 100);
+    cy.get('[data-testid="generate-edit-rooms-dialogue"]').click();
+    editRoom("a", "squarefeet", 300);
+    cy.get(`[data-testid="modify-rooms-button"]`).click();
+    cy.get(`[data-testid="room-a-attribute-squarefeet"]`).should(
+      "have.text",
+      `$600`
+    );
+  });
 });
 
 const createRentAndRooms = (rentAmount) => {
@@ -98,6 +110,19 @@ const checkTotals = (attribute1, attribute2, totalRent) => {
     );
   }
   cy.get('[data-testid="grand-total"]').should("have.text", `$${totalRent}`);
+};
+
+const editRoom = (roomName, attributeName, newAmount) => {
+  cy.get(`[data-testid="label-edit-rooms-radio-input-${roomName}"]`).click();
+  cy.get(`[data-testid="room-edit-${roomName}-${attributeName}"]`).click();
+  cy.get(`[data-testid="room-edit-${roomName}-${attributeName}"]`).clear();
+  // need to divide by ten here because cypress does a weird thing where when you clear a number input
+  // it leaves a zero in what should be an empty form field, so when we start typing, the
+  // zero cypress left in is actually getting added to the end of our number
+  // we can get around this by dividing by 10
+  cy.get(`[data-testid="room-edit-${roomName}-${attributeName}"]`).type(
+    newAmount / 10
+  );
 };
 
 const alertMessage = (message) => {
