@@ -6,6 +6,7 @@ import CreateRooms from '../components/molecules/create/CreateRooms'
 import EditAttributes from '../components/molecules/edit/EditAttributes'
 import CreateRent from '../components/molecules/create/CreateRent'
 import EditRent from '../components/molecules/edit/EditRent'
+import EditRooms from '../components/molecules/edit/EditRooms/EditRooms'
 import styles from './calculator.module.css'
 import Modal from '../components/molecules/Modal'
 import EditButtons from '../components/molecules/EditButtons'
@@ -21,6 +22,8 @@ const Calculator = () => {
     setShowEditAttributes,
     showEditRent,
     setShowEditRent,
+    showEditRooms,
+    setShowEditRooms,
   } = useContext(RoomsContext)
 
   return (
@@ -43,6 +46,11 @@ const Calculator = () => {
         {showEditRent && (
           <Modal handleClose={setShowEditRent} isOpen={true}>
             <EditRent />
+          </Modal>
+        )}
+        {showEditRooms && (
+          <Modal handleClose={setShowEditRooms} isOpen={true}>
+            <EditRooms />
           </Modal>
         )}
         {rooms.length > 0 && <Matrix />}

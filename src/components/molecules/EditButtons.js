@@ -6,10 +6,12 @@ import { sumAttributePercentage } from '../../utils/handlers/attributeHandlers'
 
 const EditButtons = () => {
   const {
+    rooms,
     attributes,
     setShowEditAttributes,
     setShowCreateAttribute,
     setShowEditRent,
+    setShowEditRooms,
   } = useContext(RoomsContext)
   const attributePercentage = sumAttributePercentage(attributes)
   return (
@@ -39,6 +41,15 @@ const EditButtons = () => {
       >
         Edit Rent
       </Button>
+      {rooms.length > 0 && (
+        <Button
+          type='button'
+          testid='generate-edit-rooms-dialogue'
+          clickHandler={() => setShowEditRooms(true)}
+        >
+          Edit Rooms
+        </Button>
+      )}
     </div>
   )
 }
