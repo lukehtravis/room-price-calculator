@@ -14,7 +14,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: end;
-    div {
+    > div {
         margin-right: var(--double-margin);
     }
 }

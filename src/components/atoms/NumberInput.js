@@ -11,10 +11,14 @@ const NumberInput = ({
   max = '100',
   onChange = null,
   value = '',
+  tooltip = null,
 }) => {
   return (
     <div className={`${styles['form-group']} ${classes}`}>
-      <label htmlFor={nameid}>{labelText}</label>
+      <div className={styles.label}>
+        <label htmlFor={nameid}>{labelText}</label>
+        {tooltip && tooltip}
+      </div>
       <input
         type='number'
         min={min}
@@ -43,4 +47,5 @@ NumberInput.propTypes = {
   min: PropTypes.string,
   max: PropTypes.string,
   onChange: PropTypes.func,
+  tooltip: PropTypes.node,
 }

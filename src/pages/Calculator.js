@@ -16,6 +16,7 @@ const Calculator = () => {
   const {
     rent,
     rooms,
+    attributes,
     showCreateAttribute,
     setShowCreateAttribute,
     showEditAttributes,
@@ -52,6 +53,11 @@ const Calculator = () => {
           <Modal handleClose={setShowEditRooms} isOpen={true}>
             <EditRooms />
           </Modal>
+        )}
+        {rooms.length > 0 && attributes.length < 1 && (
+          <div className={styles['intro-text']}>
+            <h2>Let&apos;s get started by creating an attribute!</h2>
+          </div>
         )}
         {rooms.length > 0 && <Matrix />}
         {rooms.length > 0 && <EditButtons />}

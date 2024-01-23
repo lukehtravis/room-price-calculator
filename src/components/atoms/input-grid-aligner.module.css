@@ -17,7 +17,7 @@
     input {
         margin-bottom: var(--double-margin);
     }
-    div:last-of-type {
+    > div:last-of-type {
         flex-basis: 100%;
         display: flex;
         justify-content: center;
