@@ -6,11 +6,41 @@ on:
       - main
 
 jobs:
+  jest-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Jest Tests
+        run: npm test
+        env:
+          CI: true # This sets the environment to CI, which Jest recognizes and runs tests accordingly
+
+  cypress-test:
+    needs: jest-test # This ensures that Cypress tests will run only after Jest tests have passed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Cypress Run
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm start
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 60
+
   build-and-deploy:
+    needs: [jest-test, cypress-test] # This ensures that the build and deploy will only run after both tests have passed
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2 # commonly used utility for managing pages deployment
 
       - name: Install Dependencies
         run: npm install
@@ -18,12 +48,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Create .nojekyll file
+      - name: Create .nojekyll file # need to do this because github pages assumes the site is jekyll by default, and this is how we tell it ours is not
         run: touch build/.nojekyll
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.4
+        uses: JamesIves/github-pages-deploy-action@4.1.4 # commonly used utility for managing pages deployment
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: build # The folder the action should deploy.
+          branch: gh-pages # This is a branch github pages automatically creates during their process once we merge in to main
+          folder: build
           token: ${{ secrets.GITHUB_TOKEN }} # GitHub automatically creates this secret to use in your workflow.
