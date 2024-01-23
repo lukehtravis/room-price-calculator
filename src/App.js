@@ -4,12 +4,16 @@ import Calculator from './pages/Calculator'
 import { RoomsContextProvider } from './context/RoomsContext'
 
 function App() {
+  // served currently on github pages, which serves from a subdirectory, so we
+  // need to set a different base url on prod and in dev
+  const baseDirectory =
+    process.env?.NODE_ENV === 'development' ? '/' : '/room-price-calculator'
   return (
     <RoomsContextProvider>
-      <Router>
+      <Router basename={baseDirectory}>
         <Routes>
-          <Route exact path='/' element={<About />} />
-          <Route exact path='/calculator' element={<Calculator />} />
+          <Route path='/' element={<About />} />
+          <Route path='/calculator' element={<Calculator />} />
         </Routes>
       </Router>
     </RoomsContextProvider>
