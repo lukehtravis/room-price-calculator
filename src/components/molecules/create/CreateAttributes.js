@@ -3,6 +3,7 @@ import { RoomsContext } from '../../../context/RoomsContext'
 import { defineAttribute } from '../../../utils/handlers/attributeHandlers'
 import TextInput from '../../atoms/TextInput'
 import InputGridAligner from '../../atoms/InputGridAligner'
+import Tooltip from '../../atoms/Tooltip/Tooltip'
 import NumberInput from '../../atoms/NumberInput'
 import Button from '../../atoms/Button'
 import styles from './create-attributes.module.css'
@@ -55,12 +56,30 @@ const CreateAttributes = () => {
               nameid='attributeName'
               testid='attribute-name-input'
               labelText='Attribute Name'
+              tooltip={
+                <Tooltip>
+                  The name of your attribute. For instance, Square Feet
+                </Tooltip>
+              }
             />
             <NumberInput
               nameid='attributePercentage'
               testid='attribute-percentage-input'
               min='1'
               labelText='Attribute Percentage'
+              tooltip={
+                <Tooltip>
+                  <p>
+                    Percent of total rent which you want this attribute to be
+                    responsible for.
+                  </p>
+                  <p>
+                    For instance, if your attribute is square feet, and you want
+                    square feet to account for 50% of the price ofd rent, put 50
+                    in the box below
+                  </p>
+                </Tooltip>
+              }
             />
             <Button
               classes={styles['attribute-button']}
@@ -86,11 +105,27 @@ const CreateAttributes = () => {
                 nameid={room.name}
                 labelText={room.name}
                 testid={`room-input-${room.name}`}
+                tooltip={
+                  <Tooltip>
+                    <p>
+                      This number will represent how many units of a particular
+                      attribute this room has. Any units can be used.
+                    </p>
+                    <p>
+                      So if this attribute were square feet, we could type in
+                      the number of square feet. If it were closets, we could
+                      put a 1 for has closet, or a zero for has no closet. If we
+                      were using a category that is abstract, such as privacy,
+                      we can rank each room numerically in terms of privacy
+                      (rooms with more privacy get higher numbers)
+                    </p>
+                  </Tooltip>
+                }
               />
             ))}
 
             <Button testid='submit-attribute-details-button'>
-              Apply Attribute To Rooms
+              Apply Attributes
             </Button>
           </InputGridAligner>
         </form>

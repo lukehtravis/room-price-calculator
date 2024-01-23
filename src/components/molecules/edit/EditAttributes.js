@@ -38,12 +38,10 @@ const EditAttributes = () => {
   return (
     <div className='edit-attributes'>
       <form data-testid='submit-attribute-changes' onSubmit={handleSubmit}>
-        {/* <div className={styles['modify-attributes-form']}> */}
         <InputGridAligner numberOfInputs={attributes.length}>
           {attributes.map((attribute) => {
             return <Attribute key={attribute.name} attribute={attribute} />
           })}
-          {/* </div> */}
           <Button testid='edit-attributes-button'>Modify Attributes</Button>
         </InputGridAligner>
       </form>
