@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/room-price-calculator/static/css/main.1ce57a24.css",
-    "main.js": "/room-price-calculator/static/js/main.29049fd0.js",
+    "main.css": "/room-price-calculator/static/css/main.443f7712.css",
+    "main.js": "/room-price-calculator/static/js/main.3582e4a1.js",
     "static/js/787.ac0c07ba.chunk.js": "/room-price-calculator/static/js/787.ac0c07ba.chunk.js",
     "index.html": "/room-price-calculator/index.html",
-    "main.1ce57a24.css.map": "/room-price-calculator/static/css/main.1ce57a24.css.map",
-    "main.29049fd0.js.map": "/room-price-calculator/static/js/main.29049fd0.js.map",
+    "main.443f7712.css.map": "/room-price-calculator/static/css/main.443f7712.css.map",
+    "main.3582e4a1.js.map": "/room-price-calculator/static/js/main.3582e4a1.js.map",
     "787.ac0c07ba.chunk.js.map": "/room-price-calculator/static/js/787.ac0c07ba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1ce57a24.css",
-    "static/js/main.29049fd0.js"
+    "static/css/main.443f7712.css",
+    "static/js/main.3582e4a1.js"
   ]
 }
